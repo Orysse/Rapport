@@ -1,0 +1,187 @@
+\documentclass[11pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{geometry}
+\geometry{top=2.5cm, bottom=2.5cm, left=2cm, right=2cm, headheight=2.5cm}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{libertine}
+\renewcommand{\ttdefault}{cmtt}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage[font=scriptsize, justification=centering]{caption}
+\usepackage{array}
+\usepackage{wrapfig}
+\usepackage{multicol}
+\usepackage{xcolor}
+\definecolor{red_cea}{RGB}{176, 36, 33}
+\usepackage{tocloft}
+\setcounter{tocdepth}{2}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage[noend,french,linesnumbered,noline,boxed]{algorithm2e}
+\usepackage{algpseudocode}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage[square,numbers]{natbib}
+\bibliographystyle{abbrvnat}
+\usepackage[nottoc]{tocbibind}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usepackage{mdframed}
+\usepackage{amssymb}
+\usepackage[absolute,overlay]{textpos}
+\usepackage{graphicx}
+
+
+\usepackage{xpatch}
+\makeatletter
+\xpatchcmd\algocf@makecaption
+{\hbox}
+      {\hskip\algomargin\hbox}
+  {}{\fail}
+\makeatother
+
+
+\SetAlCapSkip{.5em}
+\SetAlCapFnt{\scriptsize}
+\SetAlCapNameFnt{\scriptsize}
+\SetNlSty{}{(}{)}
+\SetNlSkip{0.3em}
+\SetAlgoSkip{}
+\SetAlCapSty{textsc}
+\SetAlFnt{\scriptsize}
+\SetKwFor{PourChPara}{pour chaque}{faire en parallèle}{fin}
+\DontPrintSemicolon
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=red_cea,
+    urlcolor=red_cea,
+    citecolor=red_cea,
+    pdfborder={0 0 0}
+}
+
+\labelformat{equation}{éq.~#1}
+\def\equationautorefname#1{}
+\renewcommand{\algorithmautorefname}{algo.}
+
+\usepackage[nopostdot,nonumberlist,acronym]{glossaries}
+
+\makeglossaries
+
+\renewcommand{\glsnamefont}[1]{\textbf{#1}}
+\setglossarystyle{long}
+\makeglossaries
+
+\input{sections/glossaire.tex}
+
+% Définition de la commande \subsubsubsection
+\newcounter{subsubsubsection}[subsubsection]
+\renewcommand\thesubsubsubsection{\thesubsubsection.\arabic{subsubsubsection}}
+\newcommand{\subsubsubsection}[1]{%
+  \ifhmode\par\fi % Vérifie si du texte précède et insère un saut de ligne si nécessaire
+  \ifdim\prevdepth=1pt % Vérifie si la profondeur précédente est nulle (c'est-à-dire une section)
+    \vspace{0em} % Pas d'espace si la ligne précédente était une section
+  \else
+    \vspace{1em} % Sinon, ajoute l'espace
+  \fi
+  \refstepcounter{subsubsubsection}%
+  \noindent\normalfont{\textit{\thesubsubsubsection\hspace{1em}#1}}%
+  \vspace{1em}
+}
+
+% Profondeur du sommaire (4 pour inclure \subsubsubsection)
+\setcounter{tocdepth}{4}
+
+%\setglossarystyle{long}
+\renewcommand{\arraystretch}{0.7} % Ajuster l'espacement entre les lignes
+\setlength{\glsdescwidth}{\linewidth} % Largeur de la colonne des descriptions
+
+\begin{document}
+
+\pagestyle{fancy}
+
+% Page de titre
+\pagenumbering{roman}
+\begin{titlepage}
+\thispagestyle{empty} % Pas de numérotation ni d'en-tête pour la page de titre
+\vspace*{35mm}
+\begin{center}
+\begin{mdframed}
+
+ \centering
+  {\Large Rapport de Stage de Tronc Commun EPITA}\\
+  \bigskip
+  \bigskip
+  \begin{spacing}{2}
+  {\LARGE \bfseries CI/CD Platforme TRUST}\\
+  \end{spacing}
+  \bigskip
+  \bigskip
+  {\Large CHARTIER Abel}\\
+    \vspace{1em}
+  {\large EPITA - PROMOTION 2027}\\
+  \bigskip
+  \bigskip
+  \bigskip
+    \begin{minipage}{0.45\textwidth}
+      \flushright
+      \includegraphics[width=0.30\linewidth]{./assets/logo-cea-orig.png}
+    \end{minipage}\hfill
+    \begin{minipage}{0.45\textwidth}
+      \includegraphics[width=0.30\linewidth]{./assets/epita-logo.png}
+    \end{minipage}\\
+  \vspace{3em}
+  {\large \bfseries CEA Saclay - LCAN}\\
+\end{mdframed}
+
+  \bigskip
+  \vspace*{60mm}
+  \hrule
+  \begin{flushleft}
+    \textit{Encadrants:}\\
+    \medskip
+    \hspace{2em}Dr.~Rémi BOURGEOIS --- remi.BOURGEOIS@cea.fr --- CEA/DES/ISAS/DM2S/LCAN\\
+    \smallskip
+    \hspace{2em}M.~Adrien BRUNETON --- adrien.BRUNETON@cea.fr --- CEA/DES/ISAS/DM2S/LCAN
+  \end{flushleft}
+\begin{textblock*}{3cm}(16cm, 25cm) % Adjust the position (10cm, 3cm) as needed
+\end{textblock*}
+
+  %\bigskip
+  %{Promotion 2027}\\
+  %\bigskip
+  %\today
+\end{center}
+\end{titlepage}
+
+% Table des matières
+\setcounter{page}{2}
+\begingroup
+\hypersetup{linkcolor=black}
+\tableofcontents
+\endgroup
+\thispagestyle{empty} % Pas de numérotation ni d'en-tête pour la page de la ToC
+
+% Redémarre la numérotation des pages à partir de 1
+\newpage
+\pagenumbering{arabic}  % Définit la numérotation des pages en chiffres arabes
+
+\fancyhf{} % Nettoie les en-têtes et pieds de page
+\fancyhead[L]{CEA Saclay - EPITA}
+\fancyhead[R]{Abel CHARTIER}
+\fancyfoot[C]{\thepage}
+
+\include{sections/introduction} % 1 page
+\include{sections/company} % 2 pages
+\include{sections/work} % 9 pages
+\include{sections/conclusion} % 1 page
+\input{sections/bibliographie} % 1 page
+
+\input{appendix/appendix} % infinite
+
+\end{document}

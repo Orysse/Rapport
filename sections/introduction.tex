@@ -1,0 +1,85 @@
+\section{Introduction}
+
+Le présent rapport expose les travaux réalisés au cours du stage de fin
+de tronc commun de l'\textit{Ecole Pour l'Informatique et les Techniques Avancées}
+(EPITA) à Paris, du 1 septembre 2025 au 30 janvier 2026. Il a été réalisé au
+\textit{Commisariat à l'Energie Atomique et aux énergies alternatives} (CEA)
+Paris-Saclay, plus particulièrement dans le \textit{Service de Génie Logiciel
+pour la Simulation} (SGLS), au sein du \textit{Laboratoire de Calcul Avancé
+Neutronique} (LCAN), sous la tutelle de M.~Bourgeois et M.~Bruneton.
+
+\bigskip
+
+L'objectif principal du stage a été de moderniser et d'industrialiser l'infrastructure
+d'intégration continue (CI) de TRUST, un logiciel open-source de
+thermohydraulique développé par le CEA, ainsi que de l'ensemble de l'écosystème
+de projets qui en dépendent. Mon travail visait à mettre en place des pipelines
+de CI robustes et automatisés, capables de gérer les spécificités des
+architectures GPU et des environnements de calcul haute performance. Le but
+était d'assurer la fiabilité et la reproductibilité des tests, tout en
+respectant les contraintes de sécurité élevées imposées par le contexte du CEA. Cette
+approche permettrait non seulement d'améliorer la qualité du code et de
+détecter les régressions plus rapidement, mais aussi de faciliter le
+déploiement continu des nouvelles fonctionnalités, rendant ainsi possible l'évolution
+rapide et sécurisée de l'écosystème TRUST. S'inscrivant dans le développement
+des machines exascale en Europe et en France, la mise en place de tests
+automatisés et l'orchestration de campagnes de validation constituèrent une
+partie importante de ma mission. Ces tests permettaient de garantir la
+stabilité des logiciels sur des architectures hybrides CPU/GPU et de s'assurer
+que les performances et la précision des simulations restaient optimales.
+
+\bigskip
+
+Mon choix pour ce stage au CEA s'appuie aussi sur la réputation de l'établissement
+en matière de recherche appliquée et sur la possibilité de contribuer à un
+projet open-source, s'appuyant sur des technologies DevOps de pointe dans un
+contexte exigeant. Le CEA est reconnu pour son excellence dans le domaine de la
+recherche scientifique et technologique, et travailler dans un tel
+environnement représentait une opportunité unique d'acquérir des compétences
+avancées en DevOps et en gestion d'infrastructures de calcul haute performance, tout
+en collaborant avec des experts. Enfin, la perspective de travailler dans un
+environnement de haute sécurité et de gérer des infrastructures complexes a fortement
+encouragé ma décision. Contribuer à un projet open-source d'envergure utilisé
+par la communauté scientifique représentait une opportunité unique pour
+approfondir mes connaissances et pour participer à des projets à la pointe de
+la technologie.
+
+\bigskip
+
+Les travaux effectués au cours de ce stage se sont structurés en cinq phases. Chacune
+de ces parties a fait l'objet d'un rapport qui détaille mon cheminement dans la
+mise en place et l'optimisation de l'infrastructure DevOps.
+
+\medskip
+
+\begin{enumerate}
+
+\item Découverte de l'écosystème TRUST et de son architecture logicielle. Audit
+    de l'infrastructure de CI existante et identification des points d'amélioration
+    . Familiarisation avec les contraintes de sécurité et les spécificités des
+    environnements de calcul haute performance du CEA.
+
+\medskip
+
+\item Modernisation de la CI de TRUST avec mise en place de pipelines automatisés
+    pour les tests sur architectures CPU et GPU. Intégration des mécanismes de
+    validation et de tests de non-régression.
+
+\medskip
+
+\item Extension de l'infrastructure de CI à l'ensemble des projets dépendants de
+    TRUST. Optimisation des temps de build et de test. Mise en place de mécanismes
+    de monitoring et de reporting.
+
+\medskip
+
+\item Déploiement de campagnes de tests intensifs avec validation des performances
+    et de la stabilité. Gestion des contraintes de sécurité et d'accès aux
+    ressources de calcul.
+
+\medskip
+
+\item Rédaction d'un rapport et d'une documentation technique sur l'infrastructure
+    mise en place et les procédures de maintenance.
+
+\end{enumerate}
