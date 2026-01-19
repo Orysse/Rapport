@@ -249,7 +249,7 @@ De nombreux tests ont été effectués pour s'assurer que l'accès aux dépendan
 
 \subsubsubsection{Déploiement de l'infrastructure via Docker Compose}
 
-Le choix de Docker Compose pour orchestrer l'infrastructure de CI/CD s'est imposé après l'évaluation de plusieurs alternatives. Docker Compose offre un équilibre optimal entre flexibilité et simplicité : il est suffisamment permissif pour permettre des configurations avancées tout en restant accessible aux membres de l'équipe qui devront maintenir l'infrastructure.
+Le choix de Docker Compose pour orchestrer l'infrastructure de CI/CD s'est imposé après l'évaluation de plusieurs alternatives. Docker Compose offre un équilibre optimal entre flexibilité et simplicité : il est suffisamment permissif pour avoir des configurations avancées tout en restant accessible aux membres de l'équipe qui devront maintenir l'infrastructure.
 
 \bigskip
 
@@ -261,25 +261,19 @@ L'infrastructure déployée via Docker Compose comprend deux composants principa
 
 \bigskip
 
-\setlength{\intextsep}{0pt}%
-\begin{wrapfigure}{r}{0.5\textwidth}
-\vspace{-1em}
-\begin{itemize}
-\item[•] \textbf{Prometheus} (port 9090) : collecte et stockage des métriques
-\item[•] \textbf{Grafana} (port 3000) : visualisation via tableaux de bord
-\item[•] \textbf{Node Exporter} (port 9100) : métriques système de l'hôte
-\item[•] \textbf{cAdvisor} (port 8080) : métriques des conteneurs
-\end{itemize}
-\vspace{-1em}
-\end{wrapfigure}
-
+\begin{multicols}{2}
 La configuration a été conçue pour exposer les métriques de manière structurée, permettant une surveillance en temps réel de l'état des runners, de la charge système et des performances des jobs CI/CD. Plusieurs tableaux de bord Grafana préconfigurés ont été développés pendant le stage : vue d'ensemble complète de la stack, monitoring détaillé des conteneurs, métriques spécifiques aux runners GitLab et statistiques des jobs, ainsi que le monitoring système de l'hôte (CPU, mémoire, disque, réseau).
+
+\begin{itemize}
+    \item \textbf{Prometheus} (port 9090) : collecte et stockage des métriques
+    \item \textbf{Grafana} (port 3000) : visualisation via tableaux de bord
+    \item \textbf{Node Exporter} (port 9100) : métriques système de l'hôte
+    \item \textbf{cAdvisor} (port 8080) : métriques des conteneurs de l'hôte
+\end{itemize}
+\end{multicols}
 
 \bigskip
 
-Cette infrastructure de monitoring s'est révélée essentielle pour identifier les goulots d'étranglement et optimiser la configuration des runners au fil du stage. L'ensemble de la configuration Docker Compose est documentée dans le dépôt du projet, avec des guides de déploiement et de maintenance.
-
-\clearpage
 \subsubsubsection{Conception et implémentation de la CI/CD pour les tests CPU}
 
 La conception de la pipeline d'intégration continue a constitué le cœur technique du stage. L'objectif était de créer une infrastructure capable de tester automatiquement TRUST sur l'ensemble des distributions Linux supportées, en parallélisant au maximum les jobs tout en optimisant l'utilisation des ressources.
@@ -482,10 +476,12 @@ Bien que Grafana fournisse des métriques système, l'ajout de métriques applic
 
 \subsubsection{Comparaison avec l'infrastructure précédente}
 
-\setlength{\intextsep}{0pt}%
+\subsubsection{Comparaison avec l'infrastructure précédente}
+\setlength{\intextsep}{10pt}% Augmente l'espace autour du wrapfigure
 \setlength{\extrarowheight}{0.15cm}
 \begin{wrapfigure}{r}{0.6\textwidth}
-\vspace{-1em}
+\centering % Centre le tableau dans son environnement
+\vspace{0.5em} % Espace en haut (ajustable)
 {\footnotesize
 \begin{tabular}{|l|c|c|}
 \hline
@@ -504,11 +500,10 @@ Temps feedback & 12--24h & 30--60 min \\
 Extensibilité & Difficile & Facile \\
 \hline
 \end{tabular}
-\vspace{-0.5em}
+\vspace{0.3em}
 \captionof{table}{Comparaison des infrastructures}
 \label{tab:comparaison}}
 \end{wrapfigure}
-
 Par rapport à l'Atelier (table~\ref{tab:comparaison}), l'infrastructure GitLab CI/CD apporte plusieurs améliorations majeures : centralisation de tous les résultats via l'interface GitLab contre des résultats dispersés sur différentes machines, disponibilité garantie grâce à des runners dédiés indépendants des postes de développeurs, validation automatique sur chaque merge request contre des tests nocturnes déconnectés du workflow, traçabilité complète avec historique des exécutions et artefacts conservés facilitant le diagnostic de régressions anciennes, et extensibilité via quelques lignes de YAML contre modification de scripts Bash complexes.
 
 \bigskip
