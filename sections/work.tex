@@ -4,70 +4,70 @@
 
 L'évolution des pratiques de développement logiciel dans le domaine du calcul
 scientifique a été marquée ces dernières années par l'adoption généralisée des
-approches GitOps. Ces méthodologies, qui s'appuient sur des systèmes de contrôle
+approches \gls{gitops}. Ces méthodologies, qui s'appuient sur des systèmes de contrôle
 de version et d'intégration continue, permettent d'automatiser les processus de
 test, de validation et de déploiement des logiciels. L'arrivée de plateformes
-comme GitLab a considérablement facilité la mise en œuvre de ces pratiques en
+comme \gls{gitlab} a considérablement facilité la mise en œuvre de ces pratiques en
 proposant des outils intégrés pour orchestrer l'ensemble du cycle de vie du
 développement logiciel.
 
 \bigskip
 
-Dans ce contexte, la Direction de la Recherche Technologique (DRT), une autre
-direction opérationnelle du CEA, a lancé via son laboratoire DeepLab une instance
-GitLab privée, interne au CEA. Cette infrastructure offre aux équipes de
+Dans ce contexte, la \gls{drt}, une autre
+direction opérationnelle du \gls{cea}, a lancé via son laboratoire DeepLab une instance
+\gls{gitlab} privée, interne au \gls{cea}. Cette infrastructure offre aux équipes de
 recherche un environnement sécurisé pour héberger leur code source et mettre en
-place des pipelines d'intégration continue adaptés aux exigences de sécurité de
+place des \glspl{pipeline} d'intégration continue adaptés aux exigences de sécurité de
 l'institution.
 
 \bigskip
 
-Cependant, TRUST, le logiciel de thermohydraulique développé par le CEA depuis
+Cependant, \gls{trust}, le logiciel de thermohydraulique développé par le \gls{cea} depuis
 plus de vingt ans, n'a pas bénéficié de ces évolutions récentes. Son code source,
 bien que continuellement amélioré sur le plan scientifique, accuse un retard
-significatif en matière de pratiques GitOps. Cette situation s'explique en partie
+significatif en matière de pratiques \gls{gitops}. Cette situation s'explique en partie
 par l'historique du projet et la complexité de ses contraintes techniques. En
-effet, TRUST doit être testé sur de multiples architectures matérielles afin de
-garantir sa portabilité : architectures CPU traditionnelles, architectures
-hybrides CPU-GPU, supercalculateurs, et différents systèmes d'exploitation. Ces
+effet, \gls{trust} doit être testé sur de multiples architectures matérielles afin de
+garantir sa portabilité : architectures \gls{cpu} traditionnelles, architectures
+hybrides \gls{cpu}-\gls{gpu}, supercalculateurs, et différents systèmes d'exploitation. Ces
 tests de portabilité sont essentiels pour assurer que le logiciel fonctionne de
 manière fiable dans tous les environnements où il est déployé.
 
 \bigskip
 
-Au-delà du code source de TRUST lui-même, l'écosystème du logiciel comprend
-également les Baltiks, un ensemble de projets satellites qui dépendent de TRUST
+Au-delà du code source de \gls{trust} lui-même, l'écosystème du logiciel comprend
+également les \gls{baltiks}, un ensemble de projets satellites qui dépendent de \gls{trust}
 et qui étendent ses fonctionnalités pour des applications spécifiques. Ces
 projets nécessitent eux aussi d'être testés régulièrement pour détecter
-d'éventuelles régressions introduites par les évolutions de TRUST.
+d'éventuelles régressions introduites par les évolutions de \gls{trust}.
 
 \bigskip
 
 L'objectif principal de mon stage est donc de concevoir et de déployer une
-nouvelle infrastructure d'intégration continue pour TRUST et ses projets associés.
-Cette CI doit permettre de tester automatiquement le code source à chaque
+nouvelle infrastructure d'intégration continue pour \gls{trust} et ses projets associés.
+Cette \gls{ci} doit permettre de tester automatiquement le code source à chaque
 modification, de valider la portabilité sur différentes architectures, de vérifier
-le bon fonctionnement sur GPU, et d'assurer la non-régression des Baltiks. Ce
+le bon fonctionnement sur \gls{gpu}, et d'assurer la non-régression des \gls{baltiks}. Ce
 travail s'inscrit pleinement dans la stratégie de modernisation des outils de
-simulation du CEA et dans l'adaptation aux nouvelles pratiques de développement
+simulation du \gls{cea} et dans l'adaptation aux nouvelles pratiques de développement
 logiciel.
 
 \subsection{Infrastructure d'intégration continue existante}
 
-Avant le lancement de ce projet, TRUST disposait déjà d'un système de tests
+Avant le lancement de ce projet, \gls{trust} disposait déjà d'un système de tests
 automatisés, bien que celui-ci ne repose pas sur les standards modernes
-d'intégration continue. Ce système, baptisé l'Atelier, est constitué d'un
+d'intégration continue. Ce système, baptisé \gls{atelier}, est constitué d'un
 ensemble de scripts Bash développés au fil des années par les équipes du
 laboratoire. Ces scripts s'exécutent quotidiennement sur les stations de travail
-des chercheurs et ingénieurs du LCAN durant la nuit, profitant ainsi des périodes
+des chercheurs et ingénieurs du \gls{lcan} durant la nuit, profitant ainsi des périodes
 d'inactivité des machines pour réaliser les tests sans perturber les activités de
 développement.
 
 \bigskip
 
-L'Atelier orchestre l'exécution d'une batterie de tests unitaires et d'intégration
+\Gls{atelier} orchestre l'exécution d'une batterie de tests unitaires et d'intégration
 qui permettent de détecter les régressions introduites par les modifications du
-code. Avant chaque release officielle de TRUST, des tests plus exhaustifs et plus
+code. Avant chaque release officielle de \gls{trust}, des tests plus exhaustifs et plus
 longs sont lancés afin de garantir la stabilité de la version publiée. Ces tests
 comprennent notamment des simulations complètes qui peuvent nécessiter plusieurs
 heures de calcul et qui sollicitent intensivement les ressources matérielles
@@ -75,7 +75,7 @@ disponibles.
 
 \bigskip
 
-Bien que l'Atelier ait rendu service au projet pendant de nombreuses années, ce
+Bien que \gls{atelier} ait rendu service au projet pendant de nombreuses années, ce
 système présente plusieurs limitations importantes. Premièrement, sa dépendance
 aux machines personnelles des chercheurs pose des problèmes de disponibilité et
 de reproductibilité : si une machine est éteinte ou indisponible, les tests ne
@@ -85,40 +85,40 @@ Troisièmement, l'architecture basée sur des scripts Bash devient de plus en pl
 difficile à maintenir et à faire évoluer à mesure que les besoins se complexifient.
 Enfin, ce système ne permet pas d'intégrer facilement les nouvelles pratiques de
 développement collaboratif, notamment les tests automatiques déclenchés à chaque
-commit ou lors de l'ouverture de merge requests.
+commit ou lors de l'ouverture de \glspl{mergerequest}.
 
 \bigskip
 
 Ces constats ont motivé la décision de concevoir une nouvelle infrastructure
 d'intégration continue, plus moderne, plus robuste et mieux adaptée aux besoins
-actuels du projet TRUST.
+actuels du projet \gls{trust}.
 
 \subsection{Infrastructure développée}
 
 Mon travail a consisté à concevoir et déployer une infrastructure complète
-d'intégration continue pour TRUST, tirant parti des capacités offertes par GitLab
-CI/CD. Cette nouvelle infrastructure repose sur des pipelines automatisés qui se
+d'intégration continue pour \gls{trust}, tirant parti des capacités offertes par \gls{gitlab}
+\gls{ci}/\gls{cd}. Cette nouvelle infrastructure repose sur des \glspl{pipeline} automatisés qui se
 déclenchent à chaque modification du code source et qui orchestrent l'exécution
 de différentes catégories de tests.
 
 \bigskip
 
-La CI développée couvre plusieurs axes de validation. Premièrement, elle
-implémente des tests de portabilité permettant de vérifier que TRUST compile et
+La \gls{ci} développée couvre plusieurs axes de validation. Premièrement, elle
+implémente des tests de portabilité permettant de vérifier que \gls{trust} compile et
 s'exécute correctement sur diverses architectures matérielles et systèmes d'
 exploitation. Deuxièmement, elle intègre des tests spécifiques pour les
-architectures GPU, essentiels dans le contexte du passage aux supercalculateurs
-exascale. Troisièmement, elle assure la validation des Baltiks en testant
-automatiquement ces projets satellites contre la dernière version de TRUST,
+architectures \gls{gpu}, essentiels dans le contexte du passage aux supercalculateurs
+\gls{exascale}. Troisièmement, elle assure la validation des \gls{baltiks} en testant
+automatiquement ces projets satellites contre la dernière version de \gls{trust},
 détectant ainsi immédiatement toute incompatibilité introduite par les évolutions
 du code principal.
 
 \bigskip
 
-La mise en œuvre de cette CI a nécessité le déploiement de runners GitLab sur l'
+La mise en œuvre de cette \gls{ci} a nécessité le déploiement de \glspl{runner} \gls{gitlab} sur l'
 infrastructure physique du laboratoire. Cette étape s'est révélée particulièrement
-complexe en raison des contraintes de sécurité strictes imposées par le CEA. En
-effet, l'ensemble de l'infrastructure doit fonctionner en mode rootless, c'est-à-
+complexe en raison des contraintes de sécurité strictes imposées par le \gls{cea}. En
+effet, l'ensemble de l'infrastructure doit fonctionner en mode \gls{rootless}, c'est-à-
 dire sans privilèges administrateur, afin de minimiser les risques de sécurité.
 Cette contrainte a imposé des choix techniques spécifiques et a nécessité de
 résoudre plusieurs problèmes d'architecture réseau et de gestion des conteneurs.
@@ -127,15 +127,15 @@ résoudre plusieurs problèmes d'architecture réseau et de gestion des conteneu
 
 L'infrastructure déployée s'appuie sur du matériel informatique de haute
 performance mis à disposition par le laboratoire, comprenant notamment des
-serveurs rackés et des stations de travail équipées de GPU consumer puissants.
+serveurs rackés et des stations de travail équipées de \gls{gpu} consumer puissants.
 Cette puissance de calcul permet d'exécuter rapidement les tests, même les plus
 intensifs, et de fournir un retour rapide aux développeurs.
 
 \bigskip
 
 Au-delà de l'infrastructure technique, j'ai également produit la documentation
-nécessaire à la maintenance et à l'évolution de cette CI, ainsi que des guides
-d'utilisation pour les développeurs de TRUST. Cette documentation est essentielle
+nécessaire à la maintenance et à l'évolution de cette \gls{ci}, ainsi que des guides
+d'utilisation pour les développeurs de \gls{trust}. Cette documentation est essentielle
 pour assurer la pérennité du système et faciliter son appropriation par l'équipe.
 
 \subsection{Ressources et accompagnement}
@@ -143,13 +143,13 @@ pour assurer la pérennité du système et faciliter son appropriation par l'éq
 La réalisation de ce projet s'est effectuée avec le soutien de mes deux
 encadrants, Rémi Bougeois et Adrien Bruneton, qui m'ont accompagné tout au long
 du stage en apportant leur expertise technique et leur connaissance approfondie
-de l'écosystème TRUST. Leur disponibilité et leurs conseils ont été précieux
+de l'écosystème \gls{trust}. Leur disponibilité et leurs conseils ont été précieux
 pour orienter mes choix techniques et résoudre les problèmes complexes rencontrés.
 
 \bigskip
 
 Au-delà de mes encadrants directs, j'ai pu m'appuyer sur l'ensemble de l'équipe
-du LCAN, dont l'expérience collective en matière de calcul scientifique et de
+du \gls{lcan}, dont l'expérience collective en matière de calcul scientifique et de
 développement logiciel a constitué une ressource inestimable. Les échanges
 réguliers avec les chercheurs et ingénieurs du laboratoire m'ont permis de mieux
 comprendre les besoins opérationnels et les contraintes spécifiques du domaine.
@@ -158,16 +158,16 @@ comprendre les besoins opérationnels et les contraintes spécifiques du domaine
 
 Pour les aspects techniques plus spécialisés, notamment concernant l'
 infrastructure réseau et les questions de sécurité informatique, j'ai bénéficié
-du support de l'équipe RSI (Réseaux et Systèmes d'Information) de l'ISAS. Cette
+du support de l'équipe \gls{rsi} de l'\gls{isas}. Cette
 équipe, joignable via un système de tickets, a apporté son expertise pour
 résoudre les problèmes d'infrastructure et valider la conformité de mes
-développements avec les politiques de sécurité du CEA.
+développements avec les politiques de sécurité du \gls{cea}.
 
 \bigskip
 
 Enfin, j'ai disposé d'un environnement matériel particulièrement favorable, avec
 un accès à une infrastructure physique puissante comprenant des serveurs rackés
-dédiés, des stations de travail équipées de GPU consumer de dernière génération,
+dédiés, des stations de travail équipées de \gls{gpu} consumer de dernière génération,
 et un accès à différents environnements de calcul permettant de tester la
 portabilité du code dans des conditions réalistes. Cette richesse en ressources
 matérielles a été un atout majeur pour mener à bien les missions qui m'ont été
@@ -181,13 +181,13 @@ Les axes d'étude et de développement se sont appuyés sur un cadre initial fou
 
 \medskip
 \begin{enumerate}
-\item Documentation et appropriation de l'écosystème TRUST. L'étude s'est concentrée sur la compréhension du fonctionnement de TRUST, de son processus de compilation et de son écosystème de tests existants (l'Atelier). Réalisation des tutoriels utilisateurs et analyse des scripts Bash de l'infrastructure existante.
+\item Documentation et appropriation de l'écosystème \gls{trust}. L'étude s'est concentrée sur la compréhension du fonctionnement de \gls{trust}, de son processus de compilation et de son écosystème de tests existants (\gls{atelier}). Réalisation des tutoriels utilisateurs et analyse des scripts Bash de l'infrastructure existante.
 \medskip
-\item Étude des technologies d'intégration continue et de conteneurisation. Exploration approfondie de GitLab CI/CD, des pipelines et des bonnes pratiques DevOps. Étude comparative des solutions de conteneurisation (Docker vs Podman) et des architectures de déploiement (Docker Compose, Usernetes, scripts personnalisés).
+\item Étude des technologies d'intégration continue et de conteneurisation. Exploration approfondie de \gls{gitlab} \gls{ci}/\gls{cd}, des \glspl{pipeline} et des bonnes pratiques \gls{devops}. Étude comparative des solutions de conteneurisation (\gls{docker} vs Podman) et des architectures de déploiement (\gls{dockercompose}, Usernetes, scripts personnalisés).
 \medskip
-\item Exploration des contraintes de sécurité CEA. Compréhension des exigences de sécurité imposant un fonctionnement en mode rootless. Étude des implications sur l'architecture réseau (absence d'IPv4 forwarding, utilisation de slirp4netns) et sur la gestion des conteneurs.
+\item Exploration des contraintes de sécurité \gls{cea}. Compréhension des exigences de sécurité imposant un fonctionnement en mode \gls{rootless}. Étude des implications sur l'architecture réseau (absence d'IPv4 forwarding, utilisation de \gls{slirp4netns}) et sur la gestion des conteneurs.
 \medskip
-\item Lecture de la documentation GitLab CI/CD et des runners. Étude approfondie des mécanismes de cache, des artifacts, des stratégies de parallélisation et des templates réutilisables. Exploration des patterns de configuration avancés (includes, anchors, matrices).
+\item Lecture de la documentation \gls{gitlab} \gls{ci}/\gls{cd} et des \glspl{runner}. Étude approfondie des mécanismes de \gls{cache}, des \glspl{artifact}, des stratégies de parallélisation et des templates réutilisables. Exploration des patterns de configuration avancés (includes, anchors, matrices).
 \medskip
 \end{enumerate}
 \medskip
@@ -202,46 +202,46 @@ Le stage s'est déroulé sur une période de six mois, selon la chronologie suiv
 
 \medskip
 \begin{itemize}
-\item[•] \textbf{Semaines 1--2} : Arrivée au CEA, formalités administratives et mesures de sécurité. Découverte de l'environnement TRUST, réalisation des tutoriels utilisateurs.
-\item[•] \textbf{Semaines 3--5} : Premières tentatives de compilation de TRUST dans des conteneurs Docker. Déploiement de Docker en mode rootless sur les serveurs du laboratoire.
-\item[•] \textbf{Semaines 6--8} : Migration de TRUST et de ses dépendances (ExternalPackages) vers GitLab. Exploration de différentes infrastructures et logiciels de CI/CD.
-\item[•] \textbf{Semaines 9--12} : Mise en place des runners GitLab via Docker Compose. Déploiement de la stack de monitoring (Prometheus, Grafana).
-\item[•] \textbf{Semaines 13--16} : Développement de la CI/CD pour les tests CPU sur multiples distributions Linux. Configuration des runners GPU et intégration des tests GPU.
-\item[•] \textbf{Semaines 17--20} : Déploiement du serveur de stockage distribué (MinIO) pour optimiser le partage de cache entre runners. Intégration des dépôts Baltiks dans la pipeline.
+\item[•] \textbf{Semaines 1--2} : Arrivée au \gls{cea}, formalités administratives et mesures de sécurité. Découverte de l'environnement \gls{trust}, réalisation des tutoriels utilisateurs.
+\item[•] \textbf{Semaines 3--5} : Premières tentatives de compilation de \gls{trust} dans des conteneurs \gls{docker}. Déploiement de \gls{docker} en mode \gls{rootless} sur les serveurs du laboratoire.
+\item[•] \textbf{Semaines 6--8} : Migration de \gls{trust} et de ses dépendances (\gls{externalpackages}) vers \gls{gitlab}. Exploration de différentes infrastructures et logiciels de \gls{ci}/\gls{cd}.
+\item[•] \textbf{Semaines 9--12} : Mise en place des \glspl{runner} \gls{gitlab} via \gls{dockercompose}. Déploiement de la stack de monitoring (\gls{prometheus}, \gls{grafana}).
+\item[•] \textbf{Semaines 13--16} : Développement de la \gls{ci}/\gls{cd} pour les tests \gls{cpu} sur multiples distributions Linux. Configuration des \glspl{runner} \gls{gpu} et intégration des tests \gls{gpu}.
+\item[•] \textbf{Semaines 17--20} : Déploiement du serveur de stockage distribué (\gls{minio}) pour optimiser le partage de \gls{cache} entre \glspl{runner}. Intégration des dépôts \gls{baltiks} dans la \gls{pipeline}.
 \item[•] \textbf{Semaines 21--24} : Finalisation de la documentation technique, guides utilisateurs et de maintenance. Tests de validation finale de l'infrastructure complète.
 \end{itemize}
 
 \subsubsubsection{Déploiement de Docker en mode rootless sur l'infrastructure du laboratoire}
 
-Le premier défi technique a consisté à déployer Docker en mode rootless sur les serveurs du laboratoire. Ce choix s'est imposé pour respecter les contraintes de sécurité strictes du CEA, qui interdisent l'utilisation de privilèges administrateur pour les services de développement.
+Le premier défi technique a consisté à déployer \gls{docker} en mode \gls{rootless} sur les serveurs du laboratoire. Ce choix s'est imposé pour respecter les contraintes de sécurité strictes du \gls{cea}, qui interdisent l'utilisation de privilèges administrateur pour les services de développement.
 
 \bigskip
 
-Le processus de déploiement a nécessité de nombreuses interactions avec l'équipe RSI (Réseaux et Systèmes d'Information) de l'ISAS afin d'obtenir les configurations nécessaires, notamment l'attribution de plages de subuid et subgid pour chaque utilisateur devant exécuter Docker. Ces identifiants subordonnés sont essentiels au fonctionnement du mode rootless, car ils permettent de mapper les utilisateurs conteneurisés à des plages d'UID non privilégiées sur l'hôte.
+Le processus de déploiement a nécessité de nombreuses interactions avec l'équipe \gls{rsi} de l'\gls{isas} afin d'obtenir les configurations nécessaires, notamment l'attribution de plages de \gls{subuid} pour chaque utilisateur devant exécuter \gls{docker}. Ces identifiants subordonnés sont essentiels au fonctionnement du mode \gls{rootless}, car ils permettent de mapper les utilisateurs conteneurisés à des plages d'\gls{uid} non privilégiées sur l'hôte.
 
 \bigskip
 
-Plusieurs obstacles techniques ont émergé lors du déploiement. L'absence d'IPv4 forwarding sur les serveurs a rendu impossible l'utilisation du bridge réseau standard de Docker. La solution retenue a été d'utiliser slirp4netns, un outil qui implémente un réseau en espace utilisateur permettant aux conteneurs de communiquer sans nécessiter de privilèges réseau. Cette configuration particulière a été documentée dans les fichiers de configuration Docker du projet.
+Plusieurs obstacles techniques ont émergé lors du déploiement. L'absence d'IPv4 forwarding sur les serveurs a rendu impossible l'utilisation du bridge réseau standard de \gls{docker}. La solution retenue a été d'utiliser \gls{slirp4netns}, un outil qui implémente un réseau en espace utilisateur permettant aux conteneurs de communiquer sans nécessiter de privilèges réseau. Cette configuration particulière a été documentée dans les fichiers de configuration \gls{docker} du projet.
 
 \bigskip
 
-Un autre défi concernait les images de base pour TRUST. Les premiers essais avec des images standards se sont heurtés à deux problèmes : d'une part, TRUST refuse de compiler en tant que root pour des raisons de sécurité, nécessitant la création d'utilisateurs non privilégiés dans les conteneurs ; d'autre part, les dépendances de TRUST (regroupées dans le paquet ExternalPackages) représentent plusieurs gigaoctets de données, rendant les images initiales excessivement volumineuses (plus de 5 Go). Une refonte complète de la stratégie de construction des images a permis de réduire significativement leur taille en séparant les dépendances système des artefacts de compilation.
+Un autre défi concernait les images de base pour \gls{trust}. Les premiers essais avec des images standards se sont heurtés à deux problèmes : d'une part, \gls{trust} refuse de compiler en tant que root pour des raisons de sécurité, nécessitant la création d'utilisateurs non privilégiés dans les conteneurs ; d'autre part, les dépendances de \gls{trust} (regroupées dans le paquet \gls{externalpackages}) représentent plusieurs gigaoctets de données, rendant les images initiales excessivement volumineuses (plus de 5 Go). Une refonte complète de la stratégie de construction des images a permis de réduire significativement leur taille en séparant les dépendances système des \glspl{artifact} de compilation.
 
 \bigskip
 
-Le choix entre Docker et Podman a également été étudié. Bien que Podman soit conceptuellement plus adapté à un environnement rootless, Docker a été retenu pour sa maturité, sa documentation plus extensive et sa meilleure intégration avec GitLab Runner.
+Le choix entre \gls{docker} et Podman a également été étudié. Bien que Podman soit conceptuellement plus adapté à un environnement \gls{rootless}, \gls{docker} a été retenu pour sa maturité, sa documentation plus extensive et sa meilleure intégration avec \gls{gitlab} Runner.
 
 \subsubsubsection{Migration de TRUST et de ses dépendances vers GitLab}
 
-Bien que le code source principal de TRUST ait déjà été migré vers GitLab au début du stage, le dépôt ExternalPackages, contenant l'ensemble des dépendances de TRUST sous forme d'archives compressées, posait un problème majeur. Ce dépôt est nécessaire car TRUST doit pouvoir se compiler en environnement isolé sans accès Internet, notamment dans les zones sécurisées du CEA. Il contient plusieurs dizaines de gigaoctets d'archives (fichiers .tar.gz des bibliothèques tierces).
+Bien que le code source principal de \gls{trust} ait déjà été migré vers \gls{gitlab} au début du stage, le dépôt \gls{externalpackages}, contenant l'ensemble des dépendances de \gls{trust} sous forme d'archives compressées, posait un problème majeur. Ce dépôt est nécessaire car \gls{trust} doit pouvoir se compiler en environnement isolé sans accès Internet, notamment dans les zones sécurisées du \gls{cea}. Il contient plusieurs dizaines de gigaoctets d'archives (fichiers .tar.gz des bibliothèques tierces).
 
 \bigskip
 
-Les premiers essais de migration directe se sont heurtés aux limitations de taille imposées par le serveur GitLab. Plusieurs tentatives de contournement par l'envoi fragmenté des données se sont révélées infructueuses et chronophages.
+Les premiers essais de migration directe se sont heurtés aux limitations de taille imposées par le serveur \gls{gitlab}. Plusieurs tentatives de contournement par l'envoi fragmenté des données se sont révélées infructueuses et chronophages.
 
 \bigskip
 
-La solution retenue a été d'utiliser Git LFS (Large File Storage) pour gérer les archives volumineuses. Cette approche n'avait pas été envisagée initialement afin de maintenir une transition aussi fluide que possible pour les développeurs, mais elle s'est finalement imposée comme la seule option viable. La migration a nécessité une réécriture complète de l'historique Git du dépôt ExternalPackages pour intégrer Git LFS de manière transparente, en préservant l'historique des commits.
+La solution retenue a été d'utiliser Git \gls{lfs} pour gérer les archives volumineuses. Cette approche n'avait pas été envisagée initialement afin de maintenir une transition aussi fluide que possible pour les développeurs, mais elle s'est finalement imposée comme la seule option viable. La migration a nécessité une réécriture complète de l'historique Git du dépôt \gls{externalpackages} pour intégrer Git \gls{lfs} de manière transparente, en préservant l'historique des commits.
 
 \bigskip
 
@@ -249,7 +249,7 @@ De nombreux tests ont été effectués pour s'assurer que l'accès aux dépendan
 
 \subsubsubsection{Déploiement de l'infrastructure via Docker Compose}
 
-Le choix de Docker Compose pour orchestrer l'infrastructure de CI/CD s'est imposé après l'évaluation de plusieurs alternatives. Docker Compose offre un équilibre optimal entre flexibilité et simplicité : il est suffisamment permissif pour avoir des configurations avancées tout en restant accessible aux membres de l'équipe qui devront maintenir l'infrastructure.
+Le choix de \gls{dockercompose} pour orchestrer l'infrastructure de \gls{ci}/\gls{cd} s'est imposé après l'évaluation de plusieurs alternatives. \Gls{dockercompose} offre un équilibre optimal entre flexibilité et simplicité : il est suffisamment permissif pour avoir des configurations avancées tout en restant accessible aux membres de l'équipe qui devront maintenir l'infrastructure.
 
 \bigskip
 
@@ -257,37 +257,37 @@ D'autres solutions ont été considérées, notamment Usernetes (une distributio
 
 \bigskip
 
-L'infrastructure déployée via Docker Compose comprend deux composants principaux : les runners GitLab proprement dits, et une stack de monitoring complète. Cette dernière repose sur Prometheus pour la collecte et le stockage des métriques, Grafana pour la visualisation, Node Exporter pour les métriques système de l'hôte, et cAdvisor pour les métriques des conteneurs.
+L'infrastructure déployée via \gls{dockercompose} comprend deux composants principaux : les \glspl{runner} \gls{gitlab} proprement dits, et une stack de monitoring complète. Cette dernière repose sur \gls{prometheus} pour la collecte et le stockage des métriques, \gls{grafana} pour la visualisation, \gls{node-exporter} pour les métriques système de l'hôte, et \gls{cadvisor} pour les métriques des conteneurs.
 
 \bigskip
 
 \begin{multicols}{2}
-La configuration a été conçue pour exposer les métriques de manière structurée, permettant une surveillance en temps réel de l'état des runners, de la charge système et des performances des jobs CI/CD. Plusieurs tableaux de bord Grafana préconfigurés ont été développés pendant le stage : vue d'ensemble complète de la stack, monitoring détaillé des conteneurs, métriques spécifiques aux runners GitLab et statistiques des jobs, ainsi que le monitoring système de l'hôte (CPU, mémoire, disque, réseau).
+La configuration a été conçue pour exposer les métriques de manière structurée, permettant une surveillance en temps réel de l'état des \glspl{runner}, de la charge système et des performances des jobs \gls{ci}/\gls{cd}. Plusieurs tableaux de bord \gls{grafana} préconfigurés ont été développés pendant le stage : vue d'ensemble complète de la stack, monitoring détaillé des conteneurs, métriques spécifiques aux \glspl{runner} \gls{gitlab} et statistiques des jobs, ainsi que le monitoring système de l'hôte (\gls{cpu}, mémoire, disque, réseau).
 
 \begin{itemize}
-    \item \textbf{Prometheus} (port 9090) : collecte et stockage des métriques
-    \item \textbf{Grafana} (port 3000) : visualisation via tableaux de bord
-    \item \textbf{Node Exporter} (port 9100) : métriques système de l'hôte
-    \item \textbf{cAdvisor} (port 8080) : métriques des conteneurs de l'hôte
+    \item \textbf{\Gls{prometheus}} (port 9090) : collecte et stockage des métriques
+    \item \textbf{\Gls{grafana}} (port 3000) : visualisation via tableaux de bord
+    \item \textbf{\Gls{node-exporter}} (port 9100) : métriques système de l'hôte
+    \item \textbf{\Gls{cadvisor}} (port 8080) : métriques des conteneurs de l'hôte
 \end{itemize}
 \end{multicols}
 
 \bigskip
 
-\subsubsubsection{Conception et implémentation de la CI/CD pour les tests CPU}
+\subsubsubsection{Conception et implémentation de la \acrshort{ci}/\acrshort{cd} pour les tests \acrshort{cpu}}
 
-La conception de la pipeline d'intégration continue a constitué le cœur technique du stage. L'objectif était de créer une infrastructure capable de tester automatiquement TRUST sur l'ensemble des distributions Linux supportées, en parallélisant au maximum les jobs tout en optimisant l'utilisation des ressources.
+La conception de la \gls{pipeline} d'intégration continue a constitué le cœur technique du stage. L'objectif était de créer une infrastructure capable de tester automatiquement \gls{trust} sur l'ensemble des distributions Linux supportées, en parallélisant au maximum les jobs tout en optimisant l'utilisation des ressources.
 
 \bigskip
 
-La pipeline s'articule autour de six stages principaux :
+La \gls{pipeline} s'articule autour de six stages principaux :
 
 \medskip
 \begin{enumerate}
-\item \texttt{.pre} : détermination automatique de la branche ExternalPackages à utiliser
-\item \texttt{setup} : clonage et mise à jour du dépôt ExternalPackages
+\item \texttt{.pre} : détermination automatique de la branche \gls{externalpackages} à utiliser
+\item \texttt{setup} : clonage et mise à jour du dépôt \gls{externalpackages}
 \item \texttt{configure} : exécution de \texttt{./configure} pour chaque distribution
-\item \texttt{build} : compilation de TRUST
+\item \texttt{build} : compilation de \gls{trust}
 \item \texttt{test} : exécution de la suite de tests
 \item \texttt{.post} : sessions de debug interactives (manuelles)
 \end{enumerate}
@@ -304,7 +304,7 @@ Un système de nommage cohérent a été adopté pour les jobs : \texttt{<stage>
 {\footnotesize
 \begin{tabular}{|l|l|l|}
 \hline
-Distribution & Image Docker & Gestionnaire \\
+Distribution & Image \gls{docker} & Gestionnaire \\
 \hline
 Fedora 40 & \texttt{fedora:40} & dnf \\
 \hline
@@ -318,17 +318,17 @@ UBI 9 & \texttt{redhat/ubi9} & dnf \\
 \hline
 \end{tabular}
 \vspace{-0.5em}
-\captionof{table}{Distributions CPU intégrées à la CI}
+\captionof{table}{Distributions \acrshort{cpu} intégrées à la \acrshort{ci}}
 \label{tab:distros_cpu}}
 \end{wrapfigure}
 
-Cinq distributions CPU ont été intégrées (table~\ref{tab:distros_cpu}). Chaque distribution est définie via une ancre YAML contenant tous ses paramètres : image Docker, gestionnaire de paquets, options de configuration, cibles de tests et tags de runners.
+Cinq distributions \acrshort{cpu} ont été intégrées (table~\ref{tab:distros_cpu}). Chaque distribution est définie via une ancre \acrshort{yaml} contenant tous ses paramètres : image \gls{docker}, gestionnaire de paquets, options de configuration, cibles de tests et tags de \glspl{runner}.
 
 \bigskip
 
 \paragraph{Choix architectural : templates vs matrices}
 
-Une décision importante a concerné la structure de la configuration. GitLab CI/CD propose deux approches principales : les matrices (permettant de générer automatiquement des jobs variés à partir d'une définition unique) et les templates réutilisables avec \texttt{include}.
+Une décision importante a concerné la structure de la configuration. \gls{gitlab} \acrshort{ci}/\acrshort{cd} propose deux approches principales : les matrices (permettant de générer automatiquement des jobs variés à partir d'une définition unique) et les templates réutilisables avec \texttt{include}.
 
 \bigskip
 
@@ -336,82 +336,82 @@ La solution retenue utilise des templates avec \texttt{include}, car elle offre 
 
 \bigskip
 
-\paragraph{Stratégie de cache à deux niveaux}
+\paragraph{Stratégie de \gls{cache} à deux niveaux}
 
-Un système de cache sophistiqué a été mis en place pour optimiser les temps d'exécution :
+Un système de \gls{cache} sophistiqué a été mis en place pour optimiser les temps d'exécution :
 
 \medskip
 \begin{itemize}
-\item[•] \textbf{Cache ExternalPackages} : clé \texttt{extpkgs-\$\{EXTPKGS\_BRANCH\}}, partagé entre toutes les configurations. Ce cache n'est mis à jour que lorsque le dépôt ExternalPackages change, évitant des clonages répétés coûteux.
+\item[•] \textbf{\gls{cache} \gls{externalpackages}} : clé \texttt{extpkgs-\$\{EXTPKGS\_BRANCH\}}, partagé entre toutes les configurations. Ce \gls{cache} n'est mis à jour que lorsque le dépôt \gls{externalpackages} change, évitant des clonages répétés coûteux.
 \medskip
-\item[•] \textbf{Cache de build} : clé \texttt{build-\$\{CONFIG\_NAME\}-\$\{CI\_PIPELINE\_ID\}}, spécifique à chaque configuration et isolé par pipeline. Cette isolation prévient les conflits entre pipelines concurrents.
+\item[•] \textbf{\gls{cache} de build} : clé \texttt{build-\$\{CONFIG\_NAME\}-\$\{CI\_PIPELINE\_ID\}}, spécifique à chaque configuration et isolé par \gls{pipeline}. Cette isolation prévient les conflits entre \glspl{pipeline} concurrentes.
 \end{itemize}
 
 \bigskip
 
 \paragraph{Mécanisme de matching de branches}
 
-Un système intelligent de détection de branches a été implémenté pour ExternalPackages. Lors du job \texttt{determine\_branch} en stage \texttt{.pre}, la pipeline vérifie si une branche du même nom que celle du dépôt principal existe dans ExternalPackages. Si oui, elle est utilisée ; sinon, la branche \texttt{next} est sélectionnée par défaut. Ce mécanisme permet un développement coordonné multi-dépôts, facilitant les évolutions nécessitant des modifications synchronisées de TRUST et de ses dépendances.
+Un système intelligent de détection de branches a été implémenté pour \gls{externalpackages}. Lors du job \texttt{determine\_branch} en stage \texttt{.pre}, la \gls{pipeline} vérifie si une branche du même nom que celle du dépôt principal existe dans \gls{externalpackages}. Si oui, elle est utilisée ; sinon, la branche \texttt{next} est sélectionnée par défaut. Ce mécanisme permet un développement coordonné multi-dépôts, facilitant les évolutions nécessitant des modifications synchronisées de \gls{trust} et de ses dépendances.
 
 \bigskip
 
-\paragraph{Gestion des artefacts}
+\paragraph{Gestion des \glspl{artifact}}
 
-Les artefacts sont conservés selon leur utilité : logs de configuration et compilation (30 jours), résultats de tests au format JUnit avec listes de tests échoués (30 jours), et fichiers d'environnement indiquant les branches utilisées et le statut du cache (1 jour).
+Les \glspl{artifact} sont conservés selon leur utilité : logs de configuration et compilation (30 jours), résultats de tests au format \gls{junit} avec listes de tests échoués (30 jours), et fichiers d'environnement indiquant les branches utilisées et le statut du \gls{cache} (1 jour).
 
 \bigskip
 
 Les jobs utilisent le mot-clé \texttt{needs} pour optimiser la parallélisation, avec \texttt{artifacts: false} lorsque seule la complétion du job importe, réduisant ainsi les transferts inutiles. Cette optimisation s'est révélée particulièrement efficace pour les jobs de test, qui n'ont pas besoin de télécharger les logs de compilation.
 
-\subsubsubsection{Extension de la CI pour les tests GPU}
+\subsubsubsection{Extension de la \acrshort{ci} pour les tests \acrshort{gpu}}
 
-L'extension de la pipeline aux architectures GPU a nécessité des adaptations spécifiques. Trois configurations GPU ont été ajoutées, basées sur les images NVIDIA CUDA officielles : CUDA 12.4 sur UBI 9, CUDA 12.5 sur UBI 9, et CUDA 12.4 sur Ubuntu 22.04.
-
-\bigskip
-
-Ces configurations utilisent des tags de runners spécifiques (\texttt{["docker", "gpu", "nvidia"]}) pour s'exécuter sur les stations de travail équipées de GPU consumer puissants mis à disposition par le laboratoire. Le passage de l'option \texttt{-cuda} à la commande \texttt{./configure} active le support GPU dans TRUST.
+L'extension de la \gls{pipeline} aux architectures \acrshort{gpu} a nécessité des adaptations spécifiques. Trois configurations \acrshort{gpu} ont été ajoutées, basées sur les images NVIDIA \acrshort{cuda} officielles : CUDA 12.4 sur UBI 9, CUDA 12.5 sur UBI 9, et CUDA 12.4 sur Ubuntu 22.04.
 
 \bigskip
 
-Les jobs GPU partagent la même structure que les jobs CPU (configure, build, test) mais nécessitent des timeouts légèrement plus longs en raison de la complexité accrue des tests. La stratégie de cache reste identique, garantissant que les builds GPU bénéficient également de l'optimisation ExternalPackages. Des tests spécifiques ont été ajoutés pour valider le bon fonctionnement sur GPU, notamment via la cible \texttt{ctest\_optim} qui exécute la suite de tests complète avec accélération GPU.
-
-\subsubsubsection{Serveur de stockage distribué pour le partage de cache}
-
-Afin d'améliorer encore les performances de la CI, un serveur de stockage distribué basé sur MinIO a été déployé. MinIO est un serveur de stockage objet compatible S3, open-source et auto-hébergeable.
+Ces configurations utilisent des tags de \glspl{runner} spécifiques (\texttt{["docker", "gpu", "nvidia"]}) pour s'exécuter sur les stations de travail équipées de \glspl{gpu} consumer puissants mis à disposition par le laboratoire. Le passage de l'option \texttt{-cuda} à la commande \texttt{./configure} active le support \acrshort{gpu} dans \gls{trust}.
 
 \bigskip
 
-Cette infrastructure permet aux runners de partager efficacement leurs caches, notamment le volumineux cache ExternalPackages. Sans ce système, chaque runner devait maintenir sa propre copie locale du cache, entraînant une duplication importante des données et des temps de restauration de cache variables selon le runner sélectionné.
+Les jobs \acrshort{gpu} partagent la même structure que les jobs \acrshort{cpu} (configure, build, test) mais nécessitent des timeouts légèrement plus longs en raison de la complexité accrue des tests. La stratégie de \gls{cache} reste identique, garantissant que les builds \acrshort{gpu} bénéficient également de l'optimisation \gls{externalpackages}. Des tests spécifiques ont été ajoutés pour valider le bon fonctionnement sur \acrshort{gpu}, notamment via la cible \texttt{ctest\_optim} qui exécute la suite de tests complète avec accélération \acrshort{gpu}.
+
+\subsubsubsection{Serveur de stockage distribué pour le partage de \gls{cache}}
+
+Afin d'améliorer encore les performances de la \acrshort{ci}, un serveur de stockage distribué basé sur \gls{minio} a été déployé. \gls{minio} est un serveur de stockage objet compatible \acrshort{s3}, open-source et auto-hébergeable.
 
 \bigskip
 
-Avec MinIO, le cache est centralisé et accessible via le protocole S3. GitLab CI est configuré pour utiliser ce stockage distribué comme backend de cache, garantissant que tous les runners accèdent à la même source de vérité. Cela se traduit par des temps de restauration de cache plus prévisibles et une utilisation plus efficace de l'espace disque disponible.
+Cette infrastructure permet aux \glspl{runner} de partager efficacement leurs \glspl{cache}, notamment le volumineux \gls{cache} \gls{externalpackages}. Sans ce système, chaque \gls{runner} devait maintenir sa propre copie locale du \gls{cache}, entraînant une duplication importante des données et des temps de restauration de \gls{cache} variables selon le \gls{runner} sélectionné.
 
 \bigskip
 
-Le déploiement de MinIO s'est intégré naturellement dans le Docker Compose existant, avec une configuration adaptée au mode rootless et aux contraintes réseau du CEA. Cette solution s'est révélée particulièrement efficace pour réduire les temps de setup des jobs de 5--10 minutes à moins d'une minute dans le cas où le cache ExternalPackages est déjà présent.
-
-\subsubsubsection{Intégration des dépôts Baltiks}
-
-Les Baltiks constituent des projets satellites de TRUST qui étendent ses fonctionnalités pour des applications spécifiques. Leur intégration dans la CI était essentielle pour détecter automatiquement les régressions introduites par les modifications de TRUST.
+Avec \gls{minio}, le \gls{cache} est centralisé et accessible via le protocole \acrshort{s3}. \gls{gitlab} \acrshort{ci} est configuré pour utiliser ce stockage distribué comme backend de \gls{cache}, garantissant que tous les \glspl{runner} accèdent à la même source de vérité. Cela se traduit par des temps de restauration de \gls{cache} plus prévisibles et une utilisation plus efficace de l'espace disque disponible.
 
 \bigskip
 
-Un stage dédié \texttt{baltiks} a été créé, s'exécutant uniquement lors des merge requests pour ne pas surcharger la pipeline des commits de développement quotidien. Deux approches ont été implémentées :
+Le déploiement de \gls{minio} s'est intégré naturellement dans le \gls{dockercompose} existant, avec une configuration adaptée au mode \gls{rootless} et aux contraintes réseau du \gls{cea}. Cette solution s'est révélée particulièrement efficace pour réduire les temps de setup des jobs de 5--10 minutes à moins d'une minute dans le cas où le \gls{cache} \gls{externalpackages} est déjà présent.
+
+\subsubsubsection{Intégration des dépôts \gls{baltiks}}
+
+Les \gls{baltiks} constituent des projets satellites de \gls{trust} qui étendent ses fonctionnalités pour des applications spécifiques. Leur intégration dans la \acrshort{ci} était essentielle pour détecter automatiquement les régressions introduites par les modifications de \gls{trust}.
+
+\bigskip
+
+Un stage dédié \texttt{baltiks} a été créé, s'exécutant uniquement lors des \glspl{mergerequest} pour ne pas surcharger la \gls{pipeline} des commits de développement quotidien. Deux approches ont été implémentées :
 
 \medskip
 \begin{itemize}
-\item[•] \textbf{Méthode rapide via \texttt{baltiks-distros.yml}} : permet de tester un Baltik sur toutes les distributions CPU en une seule déclaration \texttt{include}, générant automatiquement cinq jobs (un par distribution).
+\item[•] \textbf{Méthode rapide via \texttt{baltiks-distros.yml}} : permet de tester un \gls{baltik} sur toutes les distributions \acrshort{cpu} en une seule déclaration \texttt{include}, générant automatiquement cinq jobs (un par distribution).
 \medskip
-\item[•] \textbf{Méthode personnalisée via \texttt{baltiks-config.yml}} : offre un contrôle fin sur la configuration, permettant de tester un Baltik sur une distribution spécifique avec des options particulières (timeout personnalisé, options de configuration spéciales).
+\item[•] \textbf{Méthode personnalisée via \texttt{baltiks-config.yml}} : offre un contrôle fin sur la configuration, permettant de tester un \gls{baltik} sur une distribution spécifique avec des options particulières (timeout personnalisé, options de configuration spéciales).
 \end{itemize}
 \medskip
 
-Le mécanisme de fonctionnement des jobs Baltiks suit cette séquence : (i) récupération du cache de build du job \texttt{test:\$\{base\_config\_name\}} correspondant, (ii) clonage du dépôt Baltik avec le même système de matching de branches que ExternalPackages, (iii) reconfiguration avec les options spécifiées, (iv) recompilation, et (v) exécution des tests du Baltik.
+Le mécanisme de fonctionnement des jobs \gls{baltiks} suit cette séquence : (i) récupération du \gls{cache} de build du job \texttt{test} correspondant, (ii) clonage du dépôt \gls{baltik} avec le même système de matching de branches que \gls{externalpackages}, (iii) reconfiguration avec les options spécifiées, (iv) recompilation, et (v) exécution des tests du \gls{baltik}.
 
 \bigskip
 
-Les résultats sont conservés dans les artefacts pendant 30 jours, incluant les listes de tests échoués et les logs détaillés. Cette approche garantit que tout changement dans TRUST est immédiatement validé contre l'ensemble de son écosystème, réduisant drastiquement le risque de régressions non détectées.
+Les résultats sont conservés dans les \glspl{artifact} pendant 30 jours, incluant les listes de tests échoués et les logs détaillés. Cette approche garantit que tout changement dans \gls{trust} est immédiatement validé contre l'ensemble de son écosystème, réduisant drastiquement le risque de régressions non détectées.
 
 \subsubsubsection{Jobs de debug interactifs}
 
@@ -419,17 +419,17 @@ Deux jobs de debug manuels ont été conçus pour faciliter l'investigation des 
 
 \medskip
 \begin{itemize}
-\item[•] \textbf{\texttt{debug:all}} : environnement Fedora 40 avec les caches de plusieurs configurations chargés, idéal pour des investigations comparatives ou lorsque la configuration problématique n'est pas identifiée.
+\item[•] \textbf{\texttt{debug:all}} : environnement Fedora 40 avec les \glspl{cache} de plusieurs configurations chargés, idéal pour des investigations comparatives ou lorsque la configuration problématique n'est pas identifiée.
 \medskip
-\item[•] \textbf{\texttt{debug:config}} : environnement configurable via des variables (\texttt{DEBUG\_IMAGE}, \texttt{CONFIG\_NAME}, \texttt{DEBUG\_WORKER}), permettant de reproduire exactement l'environnement d'un job spécifique, y compris sur GPU.
+\item[•] \textbf{\texttt{debug:config}} : environnement configurable via des variables (\texttt{DEBUG\_IMAGE}, \texttt{CONFIG\_NAME}), permettant de reproduire exactement l'environnement d'un job spécifique, y compris sur \acrshort{gpu}.
 \end{itemize}
 \medskip
 
-Ces jobs lancent un conteneur en mode interactif pendant deux heures, donnant accès à un shell complet. Un script helper (\texttt{./scripts/debug-v2.sh}) simplifie la connexion aux sessions de debug via Docker.
+Ces jobs lancent un conteneur en mode interactif pendant deux heures, donnant accès à un shell complet. Un script helper simplifie la connexion aux sessions de debug via \gls{docker}.
 
 \bigskip
 
-Cette fonctionnalité s'est révélée indispensable lors du développement de la CI pour diagnostiquer les problèmes de configuration et de dépendances sans avoir à modifier constamment les jobs et relancer des pipelines complètes. Elle est également utilisable par les développeurs pour investiguer les échecs de tests dans l'environnement exact où ils se sont produits.
+Cette fonctionnalité s'est révélée indispensable lors du développement de la \acrshort{ci} pour diagnostiquer les problèmes de configuration et de dépendances sans avoir à modifier constamment les jobs et relancer des \glspl{pipeline} complètes. Elle est également utilisable par les développeurs pour investiguer les échecs de tests dans l'environnement exact où ils se sont produits.
 
 \subsection{Développement, interprétation et critique des résultats}
 
@@ -439,15 +439,15 @@ L'infrastructure déployée a été validée par plusieurs semaines de tests int
 
 \medskip
 \begin{enumerate}
-\item \textbf{Reproductibilité} : les pipelines peuvent être relancées avec des résultats identiques, garantissant la fiabilité des tests.
+\item \textbf{Reproductibilité} : les \glspl{pipeline} peuvent être relancées avec des résultats identiques, garantissant la fiabilité des tests.
 \medskip
-\item \textbf{Performance} : le système de cache à deux niveaux réduit significativement les temps d'exécution. Un build complet sans cache prenait initialement 45--60 minutes ; avec cache, ce temps est réduit à 8--12 minutes.
+\item \textbf{Performance} : le système de \gls{cache} à deux niveaux réduit significativement les temps d'exécution. Un build complet sans \gls{cache} prenait initialement 45--60 minutes ; avec \gls{cache}, ce temps est réduit à 8--12 minutes.
 \medskip
-\item \textbf{Scalabilité} : l'architecture supporte l'ajout de nouvelles distributions et de nouveaux Baltiks sans modification majeure de la structure. L'ajout d'une nouvelle distribution nécessite moins de 20 lignes de configuration YAML.
+\item \textbf{Scalabilité} : l'architecture supporte l'ajout de nouvelles distributions et de nouveaux \gls{baltiks} sans modification majeure de la structure. L'ajout d'une nouvelle distribution nécessite moins de 20 lignes de configuration \acrshort{yaml}.
 \medskip
-\item \textbf{Portabilité multi-architecture} : validation du fonctionnement sur CPU (Intel et AMD) et GPU (NVIDIA), confirmant la compatibilité avec l'infrastructure hétérogène du laboratoire.
+\item \textbf{Portabilité multi-architecture} : validation du fonctionnement sur \acrshort{cpu} (Intel et AMD) et \acrshort{gpu} (NVIDIA), confirmant la compatibilité avec l'infrastructure hétérogène du laboratoire.
 \medskip
-\item \textbf{Intégration développeur} : les retours de l'équipe ont confirmé que la CI s'intègre naturellement dans le workflow de développement, avec des feedbacks rapides sur les merge requests (moins de 30 minutes pour une validation complète CPU).
+\item \textbf{Intégration développeur} : les retours de l'équipe ont confirmé que la \acrshort{ci} s'intègre naturellement dans le workflow de développement, avec des feedbacks rapides sur les \glspl{mergerequest} (moins de 30 minutes pour une validation complète \acrshort{cpu}).
 \end{enumerate}
 
 \subsubsection{Limitations identifiées et perspectives d'amélioration}
@@ -456,13 +456,13 @@ Plusieurs limitations ont été identifiées au cours du stage :
 
 \medskip
 
-\paragraph{Support GPU AMD}
-Bien que l'infrastructure supporte théoriquement les GPU AMD via ROCm, aucune configuration spécifique n'a été déployée faute de matériel disponible pendant le stage. L'ajout du support AMD MI250 (disponible sur le supercalculateur Adastra) constitue une évolution naturelle, nécessitant principalement l'ajout d'images Docker basées sur ROCm et l'accès à des runners équipés de GPU AMD.
+\paragraph{Support \acrshort{gpu} AMD}
+Bien que l'infrastructure supporte théoriquement les \acrshort{gpu} AMD via \acrshort{rocm}, aucune configuration spécifique n'a été déployée faute de matériel disponible pendant le stage. L'ajout du support AMD MI250 (disponible sur le supercalculateur Adastra) constitue une évolution naturelle, nécessitant principalement l'ajout d'images \gls{docker} basées sur \acrshort{rocm} et l'accès à des \glspl{runner} équipés de \acrshort{gpu} AMD.
 
 \medskip
 
 \paragraph{Tests sur supercalculateurs}
-Les tests intensifs sur architectures multi-nœuds (Topaze, Adastra) n'ont pas encore été intégrés à la CI automatique. Cette intégration nécessiterait de déployer des runners sur ces infrastructures, ce qui pose des défis de sécurité et de gestion des ressources partagées. Une approche par jobs manuels déclenchés avant les releases majeures pourrait constituer un premier pas.
+Les tests intensifs sur architectures multi-nœuds (Topaze, Adastra) n'ont pas encore été intégrés à la \acrshort{ci} automatique. Cette intégration nécessiterait de déployer des \glspl{runner} sur ces infrastructures, ce qui pose des défis de sécurité et de gestion des ressources partagées. Une approche par jobs manuels déclenchés avant les releases majeures pourrait constituer un premier pas.
 
 \medskip
 
@@ -472,26 +472,25 @@ Certaines suites de tests prennent encore plus de deux heures. Une analyse fine 
 \medskip
 
 \paragraph{Observabilité avancée}
-Bien que Grafana fournisse des métriques système, l'ajout de métriques applicatives spécifiques à TRUST (temps par étape de compilation, couverture de tests, évolution des temps d'exécution dans le temps) enrichirait l'analyse des performances et faciliterait la détection de régressions de performance.
+Bien que \gls{grafana} fournisse des métriques système, l'ajout de métriques applicatives spécifiques à \gls{trust} (temps par étape de compilation, couverture de tests, évolution des temps d'exécution dans le temps) enrichirait l'analyse des performances et faciliterait la détection de régressions de performance.
 
 \subsubsection{Comparaison avec l'infrastructure précédente}
 
-\subsubsection{Comparaison avec l'infrastructure précédente}
-\setlength{\intextsep}{10pt}% Augmente l'espace autour du wrapfigure
+\setlength{\intextsep}{10pt}
 \setlength{\extrarowheight}{0.15cm}
 \begin{wrapfigure}{r}{0.6\textwidth}
-\centering % Centre le tableau dans son environnement
-\vspace{0.5em} % Espace en haut (ajustable)
+\centering
+\vspace{0.5em}
 {\footnotesize
 \begin{tabular}{|l|c|c|}
 \hline
-Critère & L'Atelier & GitLab CI \\
+Critère & \gls{atelier} & GitLab \acrshort{ci} \\
 \hline
 Centralisation & Non & Oui \\
 \hline
 Disponibilité & Variable & Garantie \\
 \hline
-Intégration MR & Non & Oui \\
+Intégration \acrshort{mr} & Non & Oui \\
 \hline
 Traçabilité & Limitée & Complète \\
 \hline
@@ -504,15 +503,15 @@ Extensibilité & Difficile & Facile \\
 \captionof{table}{Comparaison des infrastructures}
 \label{tab:comparaison}}
 \end{wrapfigure}
-Par rapport à l'Atelier (table~\ref{tab:comparaison}), l'infrastructure GitLab CI/CD apporte plusieurs améliorations majeures : centralisation de tous les résultats via l'interface GitLab contre des résultats dispersés sur différentes machines, disponibilité garantie grâce à des runners dédiés indépendants des postes de développeurs, validation automatique sur chaque merge request contre des tests nocturnes déconnectés du workflow, traçabilité complète avec historique des exécutions et artefacts conservés facilitant le diagnostic de régressions anciennes, et extensibilité via quelques lignes de YAML contre modification de scripts Bash complexes.
+Par rapport à \gls{atelier} (table~\ref{tab:comparaison}), l'infrastructure \gls{gitlab} \acrshort{ci}/\acrshort{cd} apporte plusieurs améliorations majeures : centralisation de tous les résultats via l'interface \gls{gitlab} contre des résultats dispersés sur différentes machines, disponibilité garantie grâce à des \glspl{runner} dédiés indépendants des postes de développeurs, validation automatique sur chaque \gls{mergerequest} contre des tests nocturnes déconnectés du workflow, traçabilité complète avec historique des exécutions et \glspl{artifact} conservés facilitant le diagnostic de régressions anciennes, et extensibilité via quelques lignes de \acrshort{yaml} contre modification de scripts Bash complexes.
 
 \bigskip
 
-Cependant, l'Atelier conserve certains avantages, notamment sa simplicité conceptuelle et son indépendance vis-à-vis d'infrastructures externes. Une approche hybride, où l'Atelier continuerait à exécuter les tests les plus lourds durant la nuit pendant que la CI GitLab valide rapidement les merge requests, pourrait être envisagée pour combiner les forces des deux systèmes.
+Cependant, \gls{atelier} conserve certains avantages, notamment sa simplicité conceptuelle et son indépendance vis-à-vis d'infrastructures externes. Une approche hybride, où \gls{atelier} continuerait à exécuter les tests les plus lourds durant la nuit pendant que la \acrshort{ci} \gls{gitlab} valide rapidement les \glspl{mergerequest}, pourrait être envisagée pour combiner les forces des deux systèmes.
 
 \subsubsection{Bilan et perspectives}
 
-Ce stage a permis de moderniser significativement l'infrastructure de tests de TRUST, alignant le projet sur les pratiques GitOps contemporaines. L'infrastructure développée est désormais opérationnelle, documentée et maintenue par l'équipe du LCAN.
+Ce stage a permis de moderniser significativement l'infrastructure de tests de \gls{trust}, alignant le projet sur les pratiques \gls{gitops} contemporaines. L'infrastructure développée est désormais opérationnelle, documentée et maintenue par l'équipe du \gls{lcan}.
 
 \bigskip
 
@@ -520,12 +519,12 @@ Les perspectives d'évolution incluent :
 
 \medskip
 \begin{itemize}
-\item[•] Extension du support GPU avec intégration de ROCm pour les architectures AMD.
+\item[•] Extension du support \acrshort{gpu} avec intégration de \acrshort{rocm} pour les architectures AMD.
 \item[•] Intégration de tests de performance automatisés avec génération de rapports de régression.
-\item[•] Déploiement de runners sur supercalculateurs pour les tests à très grande échelle.
-\item[•] Mise en place de dashboards de santé projet (taux de réussite des merge requests, temps moyen de validation, évolution du nombre de tests).
+\item[•] Déploiement de \glspl{runner} sur supercalculateurs pour les tests à très grande échelle.
+\item[•] Mise en place de dashboards de santé projet (taux de réussite des \glspl{mergerequest}, temps moyen de validation, évolution du nombre de tests).
 \item[•] Intégration d'outils d'analyse statique de code et de mesure de couverture de tests.
 \end{itemize}
 \medskip
 
-L'expérience acquise sur les contraintes de sécurité du CEA, la conteneurisation rootless et l'orchestration de pipelines complexes constitue un acquis précieux, transférable à d'autres projets du laboratoire souhaitant moderniser leurs pratiques DevOps.
+L'expérience acquise sur les contraintes de sécurité du \gls{cea}, la conteneurisation \gls{rootless} et l'orchestration de \glspl{pipeline} complexes constitue un acquis précieux, transférable à d'autres projets du laboratoire souhaitant moderniser leurs pratiques \gls{devops}.
