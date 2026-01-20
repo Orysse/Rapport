@@ -1,0 +1,69 @@
+\appendix
+
+\section{Annexes}
+
+\subsection{Architecture du pipeline CI/CD}
+\label{ann:ci-pipeline}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{./assets/ci_pipeline_image.png}
+    \caption{Vue d'ensemble de l'architecture du pipeline CI/CD montrant le flux de travail automatisé de build et de déploiement}
+    \label{fig:ci-pipeline}
+\end{figure}
+
+Ce diagramme présente l'architecture complète du pipeline d'intégration et de
+déploiement continus développé pour TRUST. On y observe les différentes étapes
+du processus automatisé, depuis la détection des modifications du code source
+jusqu'à l'exécution des tests de validation. L'organisation en stages
+successifs (setup, configure, build, test) permet une parallélisation optimale
+des jobs tout en garantissant les dépendances entre étapes. Cette architecture
+modulaire facilite l'ajout de nouvelles configurations et l'extension vers
+d'autres plateformes matérielles.
+
+\subsection{Configuration du runner avec bucket S3 MinIO}
+\label{ann:minio-s3}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{./assets/minio_s3_bucket_runner.png}
+    \caption{Configuration et architecture du runner avec bucket S3 MinIO pour le stockage des artefacts}
+    \label{fig:minio-s3}
+\end{figure}
+
+Cette figure illustre l'intégration du serveur de stockage distribué MinIO
+dans l'infrastructure CI/CD. Le système permet aux Runners GitLab de partager
+efficacement leurs caches via une interface compatible S3, réduisant
+significativement les temps de restauration du cache ExternalPackages.
+
+\subsection{Node Exporter sur Altair}
+\label{ann:node-exporter}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{./assets/node_exporter_altair.png}
+    \caption{Collecte de métriques par Node Exporter sur le serveur Altair}
+    \label{fig:node-exporter}
+\end{figure}
+
+Le tableau de bord présente les métriques système collectées par Node Exporter
+sur le serveur Altair, l'un des principaux hôtes exécutant les Runners GitLab.
+Ces métriques incluent l'utilisation du CPU, de la mémoire, du disque et du
+réseau, permettant de surveiller en temps réel la charge du système et
+d'identifier les éventuels goulots d'étranglement. Cette supervision est
+essentielle pour optimiser la distribution des jobs et garantir la stabilité
+de l'infrastructure de CI.
+
+\subsection{Supervision du GitLab Runner}
+\label{ann:runner-monitoring}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{./assets/runner_monitoring.png}
+    \caption{Tableau de bord de supervision du GitLab Runner affichant les métriques de performance et les statistiques d'exécution des jobs}
+    \label{fig:runner-monitoring}
+\end{figure}
+
+Ce tableau de bord Grafana offre une vue d'ensemble de l'activité des Runners
+GitLab déployés sur l'infrastructure du laboratoire. Les métriques affichées
+permettent de suivre l'état de la file d'attente des jobs, le taux
+d'utilisation des Runners, les temps d'exécution moyens et l'historique des
+succès et échecs. Cette observabilité est cruciale pour identifier rapidement
+les problèmes de configuration, optimiser l'allocation des ressources et
+assurer la fiabilité du système de validation automatisée de TRUST.
