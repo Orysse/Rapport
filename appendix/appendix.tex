@@ -12,7 +12,7 @@
 \end{figure}
 
 Ce diagramme présente l'architecture partiel du pipeline d'intégration et de
-déploiement continus développé pour TRUST. On y observe les différentes étapes
+déploiement continus développé pour \gls{trust}. On y observe les différentes étapes
 du processus automatisé, depuis la détection des modifications du code source
 jusqu'à l'exécution des tests de validation. L'organisation en stages
 successifs (setup, configure, build, test) permet une parallélisation optimale
@@ -60,15 +60,15 @@ de l'infrastructure de CI.
     \label{fig:runner-monitoring}
 \end{figure}
 
-Ce tableau de bord Grafana offre une vue d'ensemble de l'activité des Runners
-GitLab déployés sur l'infrastructure du laboratoire. Les métriques affichées
+Ce tableau de bord \gls{grafana} offre une vue d'ensemble de l'activité des \glspl{runner}
+\gls{gitlab} déployés sur l'infrastructure du laboratoire. Les métriques affichées
 permettent de suivre l'état de la file d'attente des jobs, le taux
-d'utilisation des Runners, les temps d'exécution moyens et l'historique des
+d'utilisation des \glspl{runner}, les temps d'exécution moyens et l'historique des
 succès et échecs. Cette observabilité est cruciale pour identifier rapidement
 les problèmes de configuration, optimiser l'allocation des ressources et
-assurer la fiabilité du système de validation automatisée de TRUST.
+assurer la fiabilité du système de validation automatisée de \gls{trust}.
 
-\subsection{Mr with ci presence}
+\subsection{Utilisation de la CI dans les MRs}
 \label{ann:mr-ci}
 \begin{figure}[H]
     \centering
@@ -81,7 +81,7 @@ Cette image montre une \Gls{mr} ne pouvant pas etre merge car la \gls{ci}
 n'est pas validée. Cette derniere ne passe pas les test de non regression des
 \Gls{baltiks}.
 
-\subsection{Ajustment to follow team needs}
+\subsection{Ajustements pour suivre les besoins de l'équipe}
 \label{ann:mr-ci}
 \begin{figure}[H]
     \centering
