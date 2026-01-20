@@ -6,12 +6,12 @@
 \label{ann:ci-pipeline}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{./assets/ci_pipeline_image.png}
+    \includegraphics[width=0.9\textwidth]{assets/ci_pipeline_image.png}
     \caption{Vue d'ensemble de l'architecture du pipeline CI/CD montrant le flux de travail automatisé de build et de déploiement}
     \label{fig:ci-pipeline}
 \end{figure}
 
-Ce diagramme présente l'architecture complète du pipeline d'intégration et de
+Ce diagramme présente l'architecture partiel du pipeline d'intégration et de
 déploiement continus développé pour TRUST. On y observe les différentes étapes
 du processus automatisé, depuis la détection des modifications du code source
 jusqu'à l'exécution des tests de validation. L'organisation en stages
@@ -24,7 +24,7 @@ d'autres plateformes matérielles.
 \label{ann:minio-s3}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{./assets/minio_s3_bucket_runner.png}
+    \includegraphics[width=0.9\textwidth]{assets/minio_s3_bucket_runner.png}
     \caption{Configuration et architecture du runner avec bucket S3 MinIO pour le stockage des artefacts}
     \label{fig:minio-s3}
 \end{figure}
@@ -38,7 +38,7 @@ significativement les temps de restauration du cache ExternalPackages.
 \label{ann:node-exporter}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{./assets/node_exporter_altair.png}
+    \includegraphics[width=0.9\textwidth]{assets/node_exporter_altair.png}
     \caption{Collecte de métriques par Node Exporter sur le serveur Altair}
     \label{fig:node-exporter}
 \end{figure}
@@ -55,7 +55,7 @@ de l'infrastructure de CI.
 \label{ann:runner-monitoring}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{./assets/runner_monitoring.png}
+    \includegraphics[width=0.9\textwidth]{assets/runner_monitoring.png}
     \caption{Tableau de bord de supervision du GitLab Runner affichant les métriques de performance et les statistiques d'exécution des jobs}
     \label{fig:runner-monitoring}
 \end{figure}
@@ -67,3 +67,32 @@ d'utilisation des Runners, les temps d'exécution moyens et l'historique des
 succès et échecs. Cette observabilité est cruciale pour identifier rapidement
 les problèmes de configuration, optimiser l'allocation des ressources et
 assurer la fiabilité du système de validation automatisée de TRUST.
+
+\subsection{Mr with ci presence}
+\label{ann:mr-ci}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{assets/mr_test_good_baltik_bad.png}
+    \caption{Image prise sur une MR en cours ou les tests sont validé mais les tests de non regression des baltiks ont echoué}
+    \label{fig:mr-ci}
+\end{figure}
+
+Cette image montre une \Gls{mr} ne pouvant pas etre merge car la \gls{ci}
+n'est pas validée. Cette derniere ne passe pas les test de non regression des
+\Gls{baltiks}.
+
+\subsection{Ajustment to follow team needs}
+\label{ann:mr-ci}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{assets/ci_fail_limit.png}
+    \caption{Ci en cours ou build CPU a rencontré une non critical failure}
+    \label{fig:mr-ci}
+\end{figure}
+
+Pour repondre au besoins de l'équipe, des règles speciales ont été ajouté à la
+\gls{ci}. Par exemple, si un build échoue mais que l'échec viens d'une app tierce qui
+echoue, les tests de \gls{trust} seront quand même lancés. De plus sur cet image on
+peut voir que pour des raisons de ressource liées à la testsuite de \Gls{trust}
+un ressource group à été crée pour empecher deux job sur une même machine d'acceder
+à la même ressource.
