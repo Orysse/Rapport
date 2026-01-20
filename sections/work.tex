@@ -106,9 +106,9 @@ de différentes catégories de tests.
 La \gls{ci} développée couvre plusieurs axes de validation. Premièrement, elle
 implémente des tests de portabilité permettant de vérifier que \gls{trust} compile et
 s'exécute correctement sur diverses architectures matérielles et systèmes d'
-exploitation. Deuxièmement, elle intègre des tests spécifiques pour les
-architectures \gls{gpu}, essentiels dans le contexte du passage aux supercalculateurs
-\gls{exascale}. Troisièmement, elle assure la validation des \gls{baltiks} en testant
+exploitation. Deuxièmement, compte tenu de la disponibilité de TRUST sur GPU,
+elle intègre des tests spécifiques pour ces architectures.
+Troisièmement, elle assure la validation des \gls{baltiks} en testant
 automatiquement ces projets satellites contre la dernière version de \gls{trust},
 détectant ainsi immédiatement toute incompatibilité introduite par les évolutions
 du code principal.
@@ -308,13 +308,13 @@ Distribution & Image \gls{docker} & Gestionnaire \\
 \hline
 Fedora 40 & \texttt{fedora:40} & dnf \\
 \hline
-Rocky Linux 9 & \texttt{rockylinux:9} & dnf \\
+Rocky Linux 8 & \texttt{rockylinux:8} & dnf \\
 \hline
-CentOS Stream 9 & \texttt{centos:stream9} & dnf \\
+CentOS 8 & \texttt{centos:8} & dnf \\
 \hline
 Ubuntu 22.04 & \texttt{ubuntu:22.04} & apt \\
 \hline
-UBI 9 & \texttt{redhat/ubi9} & dnf \\
+UBI 8 & \texttt{redhat/ubi8} & dnf \\
 \hline
 \end{tabular}
 \vspace{-0.5em}
@@ -421,7 +421,7 @@ Deux jobs de debug manuels ont été conçus pour faciliter l'investigation des 
 \begin{itemize}
 \item[•] \textbf{\texttt{debug:all}} : environnement Fedora 40 avec les \glspl{cache} de plusieurs configurations chargés, idéal pour des investigations comparatives ou lorsque la configuration problématique n'est pas identifiée.
 \medskip
-\item[•] \textbf{\texttt{debug:config}} : environnement configurable via des variables (\texttt{DEBUG\_IMAGE}, \texttt{CONFIG\_NAME}), permettant de reproduire exactement l'environnement d'un job spécifique, y compris sur \acrshort{gpu}.
+\item[•] \textbf{\texttt{debug:config}} : environnement crée pour toute les configuration avec accès au bon cache seulement, permettant de reproduire exactement l'environnement d'un job spécifique, y compris sur \acrshort{gpu}.
 \end{itemize}
 \medskip
 
@@ -441,7 +441,7 @@ L'infrastructure déployée a été validée par plusieurs semaines de tests int
 \begin{enumerate}
 \item \textbf{Reproductibilité} : les \glspl{pipeline} peuvent être relancées avec des résultats identiques, garantissant la fiabilité des tests.
 \medskip
-\item \textbf{Performance} : le système de \gls{cache} à deux niveaux réduit significativement les temps d'exécution. Un build complet sans \gls{cache} prenait initialement 45--60 minutes ; avec \gls{cache}, ce temps est réduit à 8--12 minutes.
+\item \textbf{Performance} : le système de \gls{cache} à deux niveaux réduit significativement les temps d'exécution. Un build complet sans \gls{cache} prenait initialement 45--60 minutes ; avec \gls{cache}, ce temps est réduit de 8--12 minutes.
 \medskip
 \item \textbf{Scalabilité} : l'architecture supporte l'ajout de nouvelles distributions et de nouveaux \gls{baltiks} sans modification majeure de la structure. L'ajout d'une nouvelle distribution nécessite moins de 20 lignes de configuration \acrshort{yaml}.
 \medskip
