@@ -2,44 +2,43 @@
 
 \subsection{Objectifs du stage}
 
-L'évolution des pratiques de développement logiciel dans le domaine du calcul
-scientifique a été marquée ces dernières années par l'adoption généralisée des
-approches \gls{gitops}. Ces méthodologies, qui s'appuient sur des systèmes de contrôle
-de version et d'intégration continue, permettent d'automatiser les processus de
-test, de validation et de déploiement des logiciels. L'arrivée de plateformes
-comme \gls{gitlab} a considérablement facilité la mise en œuvre de ces pratiques en
-proposant des outils intégrés pour orchestrer l'ensemble du cycle de vie du
-développement logiciel.
+L'évolution des pratiques de développement logiciel ces dernières années a été
+marquée par l'adoption généralisée des approches DevOps et \gls{gitops}, y compris
+dans le domaine du calcul scientifique. Ces méthodologies, qui s'appuient sur
+des systèmes de contrôle de version et d'intégration continue, permettent
+d'automatiser les processus de test, de validation et de déploiement des
+logiciels. L'arrivée de plateformes comme \gls{gitlab} a considérablement facilité
+la mise en œuvre de ces pratiques en proposant des outils intégrés pour
+orchestrer l'ensemble du cycle de vie du développement logiciel.
 
 \bigskip
 
-Dans ce contexte, la \gls{drt}, une autre
-direction opérationnelle du \gls{cea}, a lancé via son laboratoire DeepLab une instance
-\gls{gitlab} privée, interne au \gls{cea}. Cette infrastructure offre aux équipes de
-recherche un environnement sécurisé pour héberger leur code source et mettre en
-place des \glspl{pipeline} d'intégration continue adaptés aux exigences de sécurité de
-l'institution.
+Dans ce contexte, la \gls{drt}, une autre direction opérationnelle du
+\gls{cea}, a lancé via son laboratoire DeepLab une instance \gls{gitlab}
+privée, interne au \gls{cea}. Cette infrastructure offre aux équipes de
+recherche un environnement sécurisé pour héberger leur code source et mettre
+en place des \glspl{pipeline} d'intégration continue adaptés aux exigences de
+sécurité de l'institution.
 
 \bigskip
 
-Cependant, \gls{trust}, le logiciel de thermohydraulique développé par le \gls{cea} depuis
-plus de vingt ans, n'a pas bénéficié de ces évolutions récentes. Son code source,
-bien que continuellement amélioré sur le plan scientifique, accuse un retard
-significatif en matière de pratiques \gls{gitops}. Cette situation s'explique en partie
-par l'historique du projet et la complexité de ses contraintes techniques. En
-effet, \gls{trust} doit être testé sur de multiples architectures matérielles afin de
-garantir sa portabilité : architectures \gls{cpu} traditionnelles, architectures
-hybrides \gls{cpu}-\gls{gpu}, supercalculateurs, et différents systèmes d'exploitation. Ces
-tests de portabilité sont essentiels pour assurer que le logiciel fonctionne de
-manière fiable dans tous les environnements où il est déployé.
+\gls{trust}, logiciel de thermohydraulique développé par le \gls{cea} depuis
+plus de vingt ans, nécessite de nombreux tests de portabilité sur différentes
+architectures matérielles, systèmes d'exploitation, configurations \gls{gpu}
+et supercalculateurs. Au-delà du code source de \gls{trust} lui-même,
+l'écosystème comprend également les \gls{baltiks}, un ensemble de projets
+satellites qui étendent ses fonctionnalités pour des applications spécifiques
+et qui nécessitent eux aussi d'être testés régulièrement pour détecter
+d'éventuelles régressions.
 
 \bigskip
 
-Au-delà du code source de \gls{trust} lui-même, l'écosystème du logiciel comprend
-également les \gls{baltiks}, un ensemble de projets satellites qui dépendent de \gls{trust}
-et qui étendent ses fonctionnalités pour des applications spécifiques. Ces
-projets nécessitent eux aussi d'être testés régulièrement pour détecter
-d'éventuelles régressions introduites par les évolutions de \gls{trust}.
+Le projet s'appuie depuis ses débuts sur \gls{atelier}, un système de tests
+automatisés basé sur des scripts Bash, créé à une époque où GitLab et les
+pratiques \gls{gitops} n'existaient pas encore. Cependant, l'absence
+d'intégration avec les workflows modernes de développement collaboratif et la
+complexité croissante de la maintenance de scripts Bash rendent nécessaire une
+migration vers une infrastructure \gls{ci} moderne.
 
 \bigskip
 
@@ -85,7 +84,7 @@ Troisièmement, l'architecture basée sur des scripts Bash devient de plus en pl
 difficile à maintenir et à faire évoluer à mesure que les besoins se complexifient.
 Enfin, ce système ne permet pas d'intégrer facilement les nouvelles pratiques de
 développement collaboratif, notamment les tests automatiques déclenchés à chaque
-commit ou lors de l'ouverture de \glspl{mergerequest}.
+commit ou lors de l'ouverture de \glspl{mr}.
 
 \bigskip
 
@@ -464,7 +463,7 @@ laboratoire. Le passage de l'option \texttt{-cuda} à la commande
 
 Les jobs \acrshort{gpu} partagent la même structure que les jobs
 \acrshort{cpu} (configure, build, test) mais nécessitent des timeouts
-légèrement plus longs en raison de la complexité accrue des tests. La
+légèrement plus longs en raison de la durée accrue des tests. La
 stratégie de \gls{cache} reste identique, garantissant que les builds
 \acrshort{gpu} bénéficient également de l'optimisation \gls{externalpackages}.
 Des tests spécifiques ont été ajoutés pour valider le bon fonctionnement sur
@@ -514,29 +513,29 @@ automatiquement les régressions introduites par les modifications de \gls{trust
 
 \bigskip
 
-Un stage dédié \texttt{baltiks} a été créé, s'exécutant uniquement lors des
-\glspl{mergerequest} pour ne pas surcharger la \gls{pipeline} des commits de
+Un stage dédié \gls{baltiks} a été créé, s'exécutant uniquement lors des
+\glspl{mr} pour ne pas surcharger la \gls{pipeline} des commits de
 développement quotidien. Deux approches ont été implémentées :
 
 \medskip
 \begin{itemize}
 \item[•] \textbf{Méthode rapide via \texttt{baltiks-distros.yml}} : permet de
-    tester un \gls{baltik} sur toutes les distributions \acrshort{cpu} en une
+    tester un \gls{baltiks} sur toutes les distributions \acrshort{cpu} en une
     seule déclaration \texttt{include}, générant automatiquement cinq jobs (un
     par distribution).
 \medskip
 \item[•] \textbf{Méthode personnalisée via \texttt{baltiks-config.yml}} :
     offre un contrôle fin sur la configuration, permettant de tester un
-    \gls{baltik} sur une distribution spécifique avec des options
+    \gls{baltiks} sur une distribution spécifique avec des options
     particulières (timeout personnalisé, options de configuration spéciales).
 \end{itemize}
 \medskip
 
 Le mécanisme de fonctionnement des jobs \gls{baltiks} suit cette séquence :
 (i) récupération du \gls{cache} de build du job \texttt{test} correspondant,
-(ii) clonage du dépôt \gls{baltik} avec le même système de matching de
-branches que \gls{externalpackages}, (iii) configuration du \gls{baltik},
-(iv) compilation du \gls{baltik}, et (v) exécution des tests du \gls{baltik}.
+(ii) clonage du dépôt \gls{baltiks} avec le même système de matching de
+branches que \gls{externalpackages}, (iii) configuration du \gls{baltiks},
+(iv) compilation du \gls{baltiks}, et (v) exécution des tests du \gls{baltiks}.
 
 \bigskip
 
@@ -604,7 +603,7 @@ intensifs. Les points suivants ont été confirmés :
 \medskip
 \item \textbf{Intégration développeur} : les retours de l'équipe ont confirmé
     que la \acrshort{ci} s'intègre naturellement dans le workflow de
-    développement, avec des feedbacks rapides sur les \glspl{mergerequest}
+    développement, avec des feedbacks rapides sur les \glspl{mr}
     (moins de 30 minutes pour une validation complète \acrshort{cpu}). (cf. annexes page~\pageref{fig:mr-ci})
 \end{enumerate}
 
@@ -617,10 +616,10 @@ Plusieurs limitations ont été identifiées au cours du stage :
 \paragraph{Support \acrshort{gpu} AMD}
 Bien que l'infrastructure supporte théoriquement les \acrshort{gpu} AMD via
 \acrshort{rocm}, aucune configuration spécifique n'a été déployée faute de
-matériel disponible pendant le stage. L'ajout du support AMD MI250 (disponible
-sur le supercalculateur Adastra) constitue une évolution naturelle,
-nécessitant principalement l'ajout d'images \gls{docker} basées sur
-\acrshort{rocm} et l'accès à des \glspl{runner} équipés de \acrshort{gpu} AMD.
+matériel disponible pendant le stage. L'ajout du support AMD constitue une
+évolution naturelle, nécessitant principalement l'ajout d'images \gls{docker}
+basées sur \acrshort{rocm} et l'accès à des \glspl{runner} équipés de
+\acrshort{gpu} AMD.
 
 \medskip
 
@@ -683,7 +682,7 @@ Par rapport à \gls{atelier} (table~\ref{tab:comparaison}), l'infrastructure
 majeures : centralisation de tous les résultats via l'interface \gls{gitlab}
 contre des résultats dispersés sur différentes machines, disponibilité
 garantie grâce à des \glspl{runner} dédiés indépendants des postes de
-développeurs, validation automatique sur chaque \gls{mergerequest} contre des
+développeurs, validation automatique sur chaque \gls{mr} contre des
 tests nocturnes déconnectés du workflow, traçabilité complète avec historique
 des exécutions et \glspl{artifact} conservés facilitant le diagnostic de
 régressions anciennes, et extensibilité via quelques lignes de \acrshort{yaml}
@@ -695,7 +694,7 @@ Cependant, \gls{atelier} conserve certains avantages, notamment sa simplicité
 conceptuelle et son indépendance vis-à-vis d'infrastructures externes. Une
 approche hybride, où \gls{atelier} continuerait à exécuter les tests les plus
 lourds durant la nuit pendant que la \acrshort{ci} \gls{gitlab} valide
-rapidement les \glspl{mergerequest}, pourrait être envisagée pour combiner les
+rapidement les \glspl{mr}, pourrait être envisagée pour combiner les
 forces des deux systèmes.
 
 \subsubsection{Bilan et perspectives}
@@ -718,7 +717,7 @@ Les perspectives d'évolution incluent :
 \item[•] Déploiement de \glspl{runner} sur supercalculateurs pour les tests à
     très grande échelle.
 \item[•] Mise en place de dashboards de santé projet (taux de réussite des
-    \glspl{mergerequest}, temps moyen de validation, évolution du nombre de tests).
+    \glspl{mr}, temps moyen de validation, évolution du nombre de tests).
 \item[•] Intégration d'outils d'analyse statique de code et de mesure de
     couverture de tests.
 \end{itemize}

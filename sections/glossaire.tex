@@ -1,5 +1,8 @@
-% Glossaire concis pour le rapport de stage TRUST
-% Acronymes techniques
+% Glossaire amélioré pour le rapport de stage TRUST
+
+% ============================================
+% ACRONYMES TECHNIQUES PURS
+% ============================================
 \newacronym{ci}{CI}{Continuous Integration}
 \newacronym{cd}{CD}{Continuous Deployment}
 \newacronym{gpu}{GPU}{Graphics Processing Unit}
@@ -7,23 +10,6 @@
 \newacronym{hpc}{HPC}{High Performance Computing}
 \newacronym{api}{API}{Application Programming Interface}
 \newacronym{s3}{S3}{Simple Storage Service}
-\newacronym{baltik}{BALTIK}{Building Applications Linked with TRUST Kernels}
-\newacronym{mr}{MR}{Merge Request}
-
-% Organisations et services
-\newacronym{epita}{EPITA}{École Pour l'Informatique et les Techniques Avancées}
-\newacronym{cea}{CEA}{Commissariat à l'Énergie Atomique et aux énergies alternatives}
-\newacronym{des}{DES}{Direction des Énergies}
-\newacronym{dam}{DAM}{Direction des Applications Militaires}
-\newacronym{drt}{DRT}{Direction de la Recherche Technologique}
-\newacronym{drf}{DRF}{Direction de la Recherche Fondamentale}
-\newacronym{isas}{ISAS}{Institut des Sciences Appliquées et de la Simulation pour les énergies bas carbone}
-\newacronym{dm2s}{DM2S}{Département de Modélisation des Systèmes et des Structures}
-\newacronym{lcan}{LCAN}{Laboratoire de Calcul Intensif et d'Analise Numérique}
-\newacronym{sgls}{SGLS}{Service de Génie Logiciel pour la Simulation}
-\newacronym{rssi}{RSSI}{Responsable de la Sécurité et des Systèmes d'Information}
-
-% Technologies et outils
 \newacronym{yaml}{YAML}{YAML Ain't Markup Language}
 \newacronym{lfs}{LFS}{Large File Storage}
 \newacronym{uid}{UID}{User Identifier}
@@ -32,102 +18,158 @@
 \newacronym{ubi}{UBI}{Universal Base Image}
 \newacronym{xml}{XML}{eXtensible Markup Language}
 
-% Termes spécifiques
+% ============================================
+% ORGANISATIONS ET SERVICES (acronymes institutionnels)
+% ============================================
+\newacronym{epita}{EPITA}{École Pour l'Informatique et les Techniques Avancées}
+\newacronym{cea}{CEA}{Commissariat à l'Énergie Atomique et aux énergies alternatives}
+\newacronym{des}{DES}{Direction des Énergies}
+\newacronym{dam}{DAM}{Direction des Applications Militaires}
+\newacronym{drt}{DRT}{Direction de la Recherche Technologique}
+\newacronym{drf}{DRF}{Direction de la Recherche Fondamentale}
+\newacronym{isas}{ISAS}{Institut des Sciences Appliquées et de la Simulation pour les énergies bas carbone}
+\newacronym{dm2s}{DM2S}{Département de Modélisation des Systèmes et des Structures}
+\newacronym{lcan}{LCAN}{Laboratoire de Calcul Intensif et d'Analyse Numérique}
+\newacronym{sgls}{SGLS}{Service de Génie Logiciel pour la Simulation}
+\newacronym{rssi}{RSSI}{Responsable de la Sécurité et des Systèmes d'Information}
+
+% ============================================
+% TERMES SPÉCIFIQUES TRUST (glossaire principal)
+% ============================================
 \newglossaryentry{trust}{
   name={TRUST},
-  description={TRioU Software for Thermohydraulics - logiciel open-source de thermohydraulique développé par le CEA}
-}
-\newglossaryentry{baltiks}{
-  name={Baltiks},
-  description={Ensemble de projets satellites qui dépendent de TRUST et étendent ses fonctionnalités pour des applications spécifiques}
-}
-\newglossaryentry{gitops}{
-  name={GitOps},
-  description={Méthodologie de développement logiciel qui utilise Git comme source unique de vérité pour l'infrastructure et les applications}
-}
-\newglossaryentry{pipeline}{
-  name={Pipeline},
-  description={Ensemble automatisé de processus permettant de compiler, tester et déployer du code}
-}
-\newglossaryentry{runner}{
-  name={Runner},
-  description={Agent d'exécution GitLab qui prend en charge l'exécution des jobs définis dans les pipelines CI/CD}
-}
-\newglossaryentry{rootless}{
-  name={Rootless},
-  description={Mode d'exécution de conteneurs sans privilèges administrateur (root), améliorant la sécurité}
-}
-\newglossaryentry{artifact}{
-  name={Artifact},
-  description={Fichier ou ensemble de fichiers produits par un job CI/CD et conservés pour usage ultérieur}
-}
-\newglossaryentry{docker}{
-  name={Docker},
-  description={Plateforme de conteneurisation permettant d'empaqueter et d'exécuter des applications dans des environnements isolés}
-}
-\newglossaryentry{exascale}{
-  name={Exascale},
-  description={Classe de supercalculateurs capables d'effectuer au moins un exaflop (10$^{18}$) d'opérations par seconde}
-}
-\newglossaryentry{devops}{
-    name={DevOps},
-    description={Pratiques unifiant le développement logiciel (Dev) et l'administration des infrastructures (Ops)}
+  first={TRioU Software for Thermohydraulics (TRUST)},
+  description={TRioU Software for Thermohydraulics - Logiciel open-source de thermohydraulique développé par le CEA pour la simulation de phénomènes thermiques et hydrauliques complexes. Utilisé notamment pour les études de sûreté nucléaire et les applications énergétiques}
 }
 
-% Nouvelles entrées ajoutées
-\newglossaryentry{gitlab}{
-  name={GitLab},
-  description={Plateforme DevOps intégrée offrant la gestion de dépôts Git, l'intégration continue et le déploiement continu}
+\newglossaryentry{baltiks}{
+  name={Baltiks},
+  first={Building Applications Linked with TRUST Kernels (Baltiks)},
+  description={Building Applications Linked with TRUST Kernels - Ensemble de projets satellites qui dépendent de TRUST et étendent ses fonctionnalités pour des applications spécifiques en thermohydraulique, mécanique des fluides et transferts thermiques. Ces projets utilisent les kernels de TRUST comme base pour des simulations spécialisées}
 }
-\newglossaryentry{dockercompose}{
-  name={Docker Compose},
-  description={Outil pour définir et orchestrer des applications multi-conteneurs via des fichiers YAML}
+
+\newglossaryentry{mr}{
+  name={MR},
+  first={Merge Request (MR)},
+  description={Merge Request - Proposition de modification du code source permettant la revue et la validation avant intégration dans la branche principale. Dans GitLab, c'est le mécanisme principal de collaboration et de contrôle qualité du code, permettant les discussions, les tests automatiques et l'approbation par les pairs}
 }
-\newglossaryentry{slirp4netns}{
-  name={slirp4netns},
-  description={Outil permettant la mise en réseau de conteneurs en espace utilisateur sans privilèges réseau}
-}
-\newglossaryentry{minio}{
-  name={MinIO},
-  description={Serveur de stockage objet open-source compatible avec l'API Amazon S3, utilisé pour le cache distribué}
-}
-\newglossaryentry{prometheus}{
-  name={Prometheus},
-  description={Système open-source de surveillance et d'alerte collectant et stockant des métriques en séries temporelles}
-}
-\newglossaryentry{grafana}{
-  name={Grafana},
-  description={Plateforme open-source de visualisation et d'analyse permettant de créer des tableaux de bord à partir de métriques}
-}
-\newglossaryentry{node-exporter}{
-  name={Node Exporter},
-  description={Outil de monitoring de l'écosystème Prometheus qui exporte des métriques relatives au matériel et au système d'exploitation de l'hôte (CPU, mémoire, disque, réseau)}
-}
-\newglossaryentry{cadvisor}{
-  name={cAdvisor},
-  description={Container Advisor - outil de Google permettant de collecter, d'agréger et d'exporter des métriques sur l'utilisation des ressources et les performances des conteneurs en cours d'exécution}
-}
-\newglossaryentry{mergerequest}{
-  name={Merge Request},
-  description={Proposition de modification du code source permettant la revue et la validation avant intégration dans la branche principale}
-}
-\newglossaryentry{cache}{
-  name={Cache},
-  description={Mécanisme de stockage temporaire de données fréquemment utilisées pour accélérer les exécutions ultérieures}
-}
-\newglossaryentry{subuid}{
-  name={subuid/subgid},
-  description={Plages d'identifiants utilisateurs/groupes subordonnés permettant le remapping d'UID dans les conteneurs rootless}
-}
+
 \newglossaryentry{externalpackages}{
   name={ExternalPackages},
-  description={Dépôt contenant l'ensemble des dépendances et bibliothèques tierces nécessaires à la compilation de TRUST}
+  description={Dépôt contenant l'ensemble des dépendances et bibliothèques tierces nécessaires à la compilation de TRUST (PETSc, MED, METIS, HDF5, etc.). Gère les versions et la compilation de ces packages pour garantir la reproductibilité}
 }
+
 \newglossaryentry{atelier}{
   name={L'Atelier},
-  description={Système de tests automatisés historique de TRUST basé sur des scripts Bash s'exécutant nocturnement}
+  description={Système de tests automatisés historique de TRUST basé sur des scripts Bash s'exécutant nocturnement pour valider les modifications du code. Inclut des tests de non-régression sur un large éventail de cas de validation}
 }
+
+% ============================================
+% DEVOPS ET CI/CD
+% ============================================
+\newglossaryentry{gitops}{
+  name={GitOps},
+  description={Méthodologie de développement logiciel qui utilise Git comme source unique de vérité pour l'infrastructure et les applications. Les modifications de l'infrastructure sont versionnées et appliquées automatiquement via des processus CI/CD}
+}
+
+\newglossaryentry{devops}{
+  name={DevOps},
+  description={Ensemble de pratiques unifiant le développement logiciel (Dev) et l'administration des infrastructures (Ops) pour améliorer la collaboration, l'automatisation et la qualité des déploiements}
+}
+
+\newglossaryentry{pipeline}{
+  name={Pipeline},
+  description={Ensemble automatisé et séquentiel de processus (stages et jobs) permettant de compiler, tester et déployer du code de manière reproductible. Chaque étape peut dépendre du succès de la précédente}
+}
+
+\newglossaryentry{runner}{
+  name={Runner},
+  description={Agent d'exécution GitLab qui prend en charge l'exécution des jobs définis dans les pipelines CI/CD. Peut être partagé (shared) ou spécifique à un projet, et s'exécuter sur différents environnements (Docker, shell, Kubernetes)}
+}
+
+\newglossaryentry{artifact}{
+  name={Artifact},
+  description={Fichier ou ensemble de fichiers produits par un job CI/CD et conservés pour usage ultérieur (binaires compilés, logs de compilation, rapports de tests, documentation générée). Peuvent être passés entre jobs ou téléchargés par les utilisateurs}
+}
+
+\newglossaryentry{cache}{
+  name={Cache},
+  description={Mécanisme de stockage temporaire de données fréquemment utilisées (dépendances, fichiers compilés) pour accélérer les exécutions ultérieures des pipelines en évitant les téléchargements et recompilations redondants}
+}
+
 \newglossaryentry{junit}{
   name={JUnit},
-  description={Format XML standardisé pour reporter les résultats de tests, permettant leur intégration dans les outils CI/CD}
+  description={Format XML standardisé pour reporter les résultats de tests unitaires. Bien qu'originaire de l'écosystème Java, ce format est devenu un standard de facto permettant l'intégration et la visualisation des résultats de tests dans les outils CI/CD}
+}
+
+% ============================================
+% CONTENEURISATION
+% ============================================
+\newglossaryentry{docker}{
+  name={Docker},
+  description={Plateforme de conteneurisation permettant d'empaqueter une application avec toutes ses dépendances dans un conteneur isolé, garantissant son exécution identique sur différents environnements}
+}
+
+\newglossaryentry{rootless}{
+  name={Rootless},
+  description={Mode d'exécution de conteneurs sans privilèges administrateur (root), améliorant la sécurité en limitant les risques d'élévation de privilèges et les impacts potentiels d'une compromission du conteneur}
+}
+
+\newglossaryentry{dockercompose}{
+  name={Docker Compose},
+  description={Outil pour définir et orchestrer des applications multi-conteneurs via des fichiers YAML déclaratifs. Permet de gérer facilement les dépendances, les réseaux et les volumes entre conteneurs}
+}
+
+\newglossaryentry{slirp4netns}{
+  name={slirp4netns},
+  description={Outil permettant la mise en réseau de conteneurs en espace utilisateur sans privilèges réseau root. Essentiel pour le mode rootless en créant une pile réseau virtuelle accessible sans capacités spéciales}
+}
+
+\newglossaryentry{subuid}{
+  name={subuid/subgid},
+  description={Plages d'identifiants utilisateurs et groupes subordonnés permettant le remapping d'UID/GID dans les conteneurs rootless. Permet d'isoler les processus du conteneur en leur assignant des UID fictifs du point de vue de l'hôte}
+}
+
+% ============================================
+% PLATEFORMES ET SERVICES
+% ============================================
+\newglossaryentry{gitlab}{
+  name={GitLab},
+  description={Plateforme DevOps intégrée offrant la gestion de dépôts Git, l'intégration continue, le déploiement continu, la gestion d'issues, les revues de code et la collaboration d'équipe dans un outil unifié}
+}
+
+\newglossaryentry{minio}{
+  name={MinIO},
+  description={Serveur de stockage objet open-source haute performance compatible avec l'API Amazon S3. Utilisé pour le cache distribué des artifacts CI/CD, permettant un partage efficace entre runners}
+}
+
+% ============================================
+% MONITORING
+% ============================================
+\newglossaryentry{prometheus}{
+  name={Prometheus},
+  description={Système open-source de surveillance et d'alerte collectant et stockant des métriques en séries temporelles. Utilise un modèle pull pour scraper les métriques exposées par les applications}
+}
+
+\newglossaryentry{grafana}{
+  name={Grafana},
+  description={Plateforme open-source de visualisation et d'analyse permettant de créer des tableaux de bord interactifs et personnalisables à partir de métriques provenant de multiples sources de données}
+}
+
+\newglossaryentry{node-exporter}{
+  name={Node Exporter},
+  description={Exporteur de métriques de l'écosystème Prometheus qui collecte et expose des statistiques système de l'hôte (utilisation CPU, mémoire, disque, réseau, température, etc.)}
+}
+
+\newglossaryentry{cadvisor}{
+  name={cAdvisor},
+  description={Container Advisor - Outil développé par Google permettant de collecter, agréger et exporter en temps réel des métriques détaillées sur l'utilisation des ressources et les performances des conteneurs (CPU, mémoire, réseau, I/O)}
+}
+
+% ============================================
+% CALCUL HAUTE PERFORMANCE
+% ============================================
+\newglossaryentry{exascale}{
+  name={Exascale},
+  description={Classe de supercalculateurs capables d'effectuer au moins un exaflop (10$^{18}$) d'opérations en virgule flottante par seconde. Représente la nouvelle génération de machines de calcul pour la simulation scientifique à grande échelle}
 }

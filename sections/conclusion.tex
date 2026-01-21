@@ -1,19 +1,83 @@
 \section{Conclusion générale}
 
-Ce stage avait pour objectif de moderniser l'infrastructure de tests de \gls{trust} en mettant en place une solution de \acrshort{ci} automatisée, capable de valider le code sur multiples architectures et de tester l'ensemble de l'écosystème des projets satellites (\glspl{baltiks}). Les différents travaux effectués au cours du stage ont permis d'atteindre cet objectif.
+Ce stage avait pour objectif de moderniser l'infrastructure de tests de
+\gls{trust} en mettant en place une solution de \acrshort{ci} automatisée,
+capable de valider le code sur multiples architectures et de tester l'ensemble
+de l'écosystème des projets satellites (\gls{baltiks}). Les différents
+travaux effectués au cours du stage ont permis d'atteindre cet objectif.
 
 \bigskip
 
-Une infrastructure complète d'intégration continue a été développée et déployée, permettant d'automatiser l'ensemble du cycle de validation de \gls{trust}, de la compilation aux tests en passant par la vérification de non-régression des \glspl{baltiks}. Cette infrastructure a été pensée pour être modulaire, extensible et adaptable aux contraintes de sécurité strictes du \gls{cea}. Grâce à cette conception, elle prend en charge cinq distributions Linux pour les tests \acrshort{cpu} et trois configurations \acrshort{gpu} basées sur NVIDIA \acrshort{cuda}, tout en offrant une architecture facilement extensible pour l'ajout de nouvelles plateformes. L'ensemble du travail réalisé constitue donc une avancée importante vers l'adoption des pratiques \gls{gitops} modernes dans le développement de \gls{trust}.
+Une infrastructure complète d'intégration continue a été développée et
+déployée, permettant d'automatiser l'ensemble du cycle de validation de
+\gls{trust}, de la compilation aux tests en passant par la vérification de
+non-régression des \glspl{baltiks}. Cette infrastructure a été pensée pour
+être modulaire, extensible et adaptable aux contraintes de sécurité strictes
+du \gls{cea}. Grâce à cette conception, elle prend en charge cinq
+distributions Linux pour les tests \acrshort{cpu} et trois configurations
+\acrshort{gpu} basées sur NVIDIA \acrshort{cuda}, tout en offrant une
+architecture facilement extensible pour l'ajout de nouvelles plateformes.
+L'ensemble du travail réalisé constitue donc une avancée importante vers
+l'adoption des pratiques \gls{gitops} modernes dans le développement de \gls{trust}.
 
 \bigskip
 
-Les résultats obtenus sont très encourageants et démontrent l'intérêt indéniable de l'automatisation des tests dans un projet de cette envergure. Les \glspl{pipeline} mises en place ont permis de réduire drastiquement le temps de feedback pour les développeurs, passant de 12--24 heures avec \gls{atelier} à 30--60 minutes avec \gls{gitlab} \acrshort{ci} pour une validation complète \acrshort{cpu}. Le système de \gls{cache} à deux niveaux développé pendant le stage permet de reduire les temps de compilation de 8--12 minutes. Toutefois, l'infrastructure conçue nécessite encore des optimisations et un approfondissement au niveau de son déploiement, afin d'exploiter pleinement les capacités des architectures de calcul disponibles. L'un des axes d'amélioration futurs consistera à intégrer le support des architectures \acrshort{gpu} AMD via \acrshort{rocm} et à déployer des \glspl{runner} sur les supercalculateurs Topaze et Adastra pour les tests à très grande échelle. De plus, l'expérience acquise au cours de ce stage fournit une base solide pour le déploiement d'infrastructures \acrshort{ci}/\acrshort{cd} similaires sur d'autres projets du laboratoire, en s'appuyant sur les solutions techniques validées (\gls{docker} \gls{rootless}, \gls{dockercompose}, stratégies de \gls{cache}). Par ailleurs, la nature open-source potentielle de cette infrastructure constitue un atout majeur, offrant un cadre propice au partage de bonnes pratiques \gls{devops} au sein de la communauté du calcul scientifique. Ce projet permet également d'illustrer un cas concret d'intégration de \gls{gitlab} \acrshort{ci}/\acrshort{cd} dans un environnement de développement scientifique hautement contraint, qui pourrait servir de référence pour d'autres équipes du \gls{cea}.
+Les résultats obtenus sont très encourageants et démontrent l'intérêt
+indéniable de l'automatisation des tests dans un projet de cette envergure.
+Les \glspl{pipeline} mises en place ont permis de réduire drastiquement le
+temps de feedback pour les développeurs, passant de 12--24 heures avec
+\gls{atelier} à 30--60 minutes avec \gls{gitlab} \acrshort{ci} pour une
+validation complète \acrshort{cpu}. Le système de \gls{cache} à deux niveaux
+développé pendant le stage permet de reduire les temps de compilation de 8--12
+minutes. Toutefois, l'infrastructure conçue nécessite encore des optimisations
+et un approfondissement au niveau de son déploiement, afin d'exploiter
+pleinement les capacités des architectures de calcul disponibles. L'un des
+axes d'amélioration futurs consistera à intégrer le support des architectures
+\acrshort{gpu} AMD via \acrshort{rocm} et à déployer des \glspl{runner} sur
+les supercalculateurs Topaze et Adastra pour les tests à très grande échelle.
+De plus, l'expérience acquise au cours de ce stage fournit une base solide
+pour le déploiement d'infrastructures \acrshort{ci}/\acrshort{cd} similaires
+sur d'autres projets du laboratoire, en s'appuyant sur les solutions
+techniques validées (\gls{docker} \gls{rootless}, \gls{dockercompose},
+stratégies de \gls{cache}). Par ailleurs, la nature open-source potentielle de
+cette infrastructure constitue un atout majeur, offrant un cadre propice au
+partage de bonnes pratiques \gls{devops} au sein de la communauté du calcul
+scientifique. Ce projet permet également d'illustrer un cas concret
+d'intégration de \gls{gitlab} \acrshort{ci}/\acrshort{cd} dans un
+environnement de développement scientifique hautement contraint, qui pourrait
+servir de référence pour d'autres équipes du \gls{cea}.
 
 \bigskip
 
-Ce stage a représenté une opportunité unique pour renforcer mes compétences, tant sur le plan théorique que pratique, dans des domaines variés tels que l'infrastructure \gls{devops}, la conteneurisation, l'orchestration de \glspl{pipeline} \acrshort{ci}/\acrshort{cd} et l'administration système en environnement sécurisé. La possibilité de contribuer activement à un projet mêlant développement logiciel, optimisation d'infrastructure, automatisation et calcul haute performance (\acrshort{hpc}) correspondait parfaitement à mes attentes. Ce travail m'a permis de me positionner en tant qu'ingénieur pleinement impliqué dans la conception et le déploiement d'une infrastructure critique, et non comme un simple exécutant. J'ai particulièrement apprécié l'équilibre entre autonomie et encadrement, qui m'a permis d'explorer différentes solutions techniques (\gls{docker} vs Podman, \gls{dockercompose} vs Usernetes) et de prendre des décisions d'architecture en lien avec les objectifs du projet et les contraintes de sécurité du \gls{cea}. En outre, j'ai eu la chance d'être très bien accueilli par les équipes du \gls{lcan} et de bénéficier d'une intégration fluide dans les parcours proposés par le \gls{cea} aux nouveaux arrivants. J'ai également pu échanger avec plusieurs équipes techniques du site de Saclay, notamment l'équipe \acrshort{rssi} de l'\acrshort{isas} et l'équipe DeepLab, ce qui m'a ouvert sur d'autres problématiques d'infrastructure et de sécurité en environnement de recherche.
+Ce stage a représenté une opportunité unique pour renforcer mes compétences,
+tant sur le plan théorique que pratique, dans des domaines variés tels que
+l'infrastructure \gls{devops}, la conteneurisation, l'orchestration de
+\glspl{pipeline} \acrshort{ci}/\acrshort{cd} et l'administration système en
+environnement sécurisé. La possibilité de contribuer activement à un projet
+mêlant développement logiciel, optimisation d'infrastructure, automatisation
+et calcul haute performance (\acrshort{hpc}) correspondait parfaitement à mes
+attentes. Ce travail m'a permis de me positionner en tant qu'ingénieur
+pleinement impliqué dans la conception et le déploiement d'une infrastructure
+critique, et non comme un simple exécutant. J'ai particulièrement apprécié
+l'équilibre entre autonomie et encadrement, qui m'a permis d'explorer
+différentes solutions techniques (\gls{docker} vs Podman, \gls{dockercompose}
+vs Usernetes) et de prendre des décisions d'architecture en lien avec les
+objectifs du projet et les contraintes de sécurité du \gls{cea}. En outre,
+j'ai eu la chance d'être très bien accueilli par les équipes du \gls{lcan} et
+de bénéficier d'une intégration fluide dans les parcours proposés par le
+\gls{cea} aux nouveaux arrivants. J'ai également pu échanger avec plusieurs
+équipes techniques du site de Saclay, notamment l'équipe \acrshort{rssi} de
+l'\acrshort{isas} et l'équipe DeepLab, ce qui m'a ouvert sur d'autres
+problématiques d'infrastructure et de sécurité en environnement de recherche.
 
 \bigskip
 
-Je remercie particulièrement mes encadrants M.~Rémi Bougeois et M.~Adrien Bruneton pour leur disponibilité, leur soutien technique tout au long du stage et pour leurs orientations sur les choix d'architecture. Je tiens également à remercier l'ensemble de l'équipe du \gls{lcan} pour leur accueil et leur patience face à mes nombreuses questions sur l'écosystème \gls{trust}, ainsi que l'équipe \acrshort{rssi} de l'\acrshort{isas} pour leur support technique sur les aspects réseau et sécurité. Enfin, je remercie l'équipe DeepLab pour la mise à disposition de l'infrastructure \gls{gitlab} et leur réactivité sur les questions d'administration.
+Je remercie particulièrement mes encadrants M.~Rémi Bougeois et M.~Adrien
+Bruneton pour leur disponibilité, leur soutien technique tout au long du stage
+et pour leurs orientations sur les choix d'architecture. Je tiens également à
+remercier l'ensemble de l'équipe du \gls{lcan} pour leur accueil et leur
+patience face à mes nombreuses questions sur l'écosystème \gls{trust}, ainsi
+que l'équipe \acrshort{rssi} de l'\acrshort{isas} pour leur support technique
+sur les aspects réseau et sécurité. Enfin, je remercie l'équipe DeepLab pour
+la mise à disposition de l'infrastructure \gls{gitlab} et leur réactivité sur
+les questions d'administration.

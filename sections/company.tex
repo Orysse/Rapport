@@ -121,36 +121,31 @@ veille technique active pour un suivi de l'état de l'art.
 
 \subsection{Le positionnement du stage dans les travaux de l'entreprise}
 
-Le déploiement des machines \gls{exascale} en Europe ouvre une nouvelle ère dans le
-\gls{hpc}, avec des capacités de calcul inédites. Acteur de
-premier plan dans ce domaine, le \gls{cea} accompagne cette évolution en intégrant
-les \glspl{gpu} au sein des architectures de calcul, en complément des \glspl{cpu} multi-cœurs
-traditionnellement utilisés. Cette architecture hybride, alliant \gls{cpu} pour leur
-polyvalence et \gls{gpu} pour leur puissance de calcul parallèle, impose de nouveaux
-défis, notamment en matière de gestion énergétique, de consommation mémoire et
-d'optimisation des échanges entre ces processeurs.
+Le déploiement des machines \gls{exascale} en Europe marque une évolution
+majeure du \gls{hpc}, avec l'émergence d'architectures hybrides
+\gls{cpu}/\gls{gpu} offrant des capacités de calcul sans précédent. Cette
+transition impose de repenser les pratiques de développement et de validation
+des codes de calcul scientifique pour garantir leur portabilité et leurs
+performances sur ces nouvelles plateformes.
 
 \bigskip
 
-Les codes de calcul scientifique, qui occupent une place centrale dans des
-applications comme la thermohydraulique ou la mécanique des fluides, doivent s'
-adapter à cette transformation vers le calcul hybride. Néanmoins, cette
-évolution impose des contraintes strictes en matière de validation, de tests
-et de déploiement continu, d'autant plus dans un environnement où la sécurité
-et la fiabilité des résultats sont primordiales. C'est précisément dans ce
-contexte que s'inscrit mon stage, où j'ai pour mission d'assurer l'intégration
-et le déploiement continu de ces outils de simulation sur des infrastructures
-de calcul avancées.
+Parallèlement, l'adoption généralisée des pratiques \gls{devops} dans le
+développement logiciel a transformé les méthodes de travail, avec
+l'automatisation des processus de test, de validation et de déploiement. Ces
+approches modernes, déjà bien établies dans l'industrie du logiciel,
+commencent à s'imposer dans le calcul scientifique où elles répondent aux
+exigences croissantes de reproductibilité, de traçabilité et de qualité du
+code.
 
 \bigskip
 
-Au sein du \gls{lcan}, mon travail se concentre sur la gestion de la \gls{ci}
-de \gls{trust}, un logiciel open-source de thermohydraulique développé
-par le \gls{cea}. Ce dernier est un environnement dédié aux calculs intensifs et à
-la simulation scientifique. Mon rôle consiste à mettre en place et maintenir
-des \glspl{pipeline} de \gls{ci} adaptés aux architectures \gls{gpu}, à orchestrer les tests sur
-supercalculateurs dans un contexte de haute sécurité, et à assurer la \gls{ci} de l'
-ensemble des projets dépendant de \gls{trust}. Ce travail contribue directement aux
-recherches du \gls{cea} pour garantir la fiabilité et les performances des outils de
-simulation tout en répondant aux exigences de sécurité des infrastructures de
-calcul de prochaine génération.
+Au sein du \gls{lcan}, mon travail se concentre sur la modernisation de
+l'infrastructure de \gls{ci} de \gls{trust}, un logiciel open-source de
+thermohydraulique développé par le \gls{cea}. Mon rôle consiste à mettre en
+place et maintenir des \glspl{pipeline} de \gls{ci} adaptés aux architectures
+modernes, à orchestrer les tests dans un contexte de haute sécurité, et à
+assurer la validation de l'ensemble de l'écosystème de projets dépendant de
+\gls{trust}. Ce travail s'inscrit dans la stratégie du \gls{cea} visant à
+garantir la fiabilité et les performances de ses outils de simulation tout en
+adoptant les meilleures pratiques \gls{devops} du domaine.
