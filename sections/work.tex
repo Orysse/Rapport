@@ -106,7 +106,7 @@ de différentes catégories de tests.
 La \gls{ci} développée couvre plusieurs axes de validation. Premièrement, elle
 implémente des tests de portabilité permettant de vérifier que \gls{trust} compile et
 s'exécute correctement sur diverses architectures matérielles et systèmes d'
-exploitation. Deuxièmement, compte tenu de la disponibilité de TRUST sur GPU,
+exploitation. Deuxièmement, compte tenu de la disponibilité de \gls{trust} sur \gls{gpu},
 elle intègre des tests spécifiques pour ces architectures.
 Troisièmement, elle assure la validation des \gls{baltiks} en testant
 automatiquement ces projets satellites contre la dernière version de \gls{trust},
@@ -141,10 +141,12 @@ pour assurer la pérennité du système et faciliter son appropriation par l'éq
 \subsection{Ressources et accompagnement}
 
 La réalisation de ce projet s'est effectuée avec le soutien de mes deux
-encadrants, Rémi Bougeois et Adrien Bruneton, qui m'ont accompagné tout au long
-du stage en apportant leur expertise technique et leur connaissance approfondie
-de l'écosystème \gls{trust}. Leur disponibilité et leurs conseils ont été précieux
-pour orienter mes choix techniques et résoudre les problèmes complexes rencontrés.
+encadrants, Rémi Bougeois et Adrien Bruneton, tous deux developpeurs de \gls{trust}
+ayant initié l'idée d'une \gls{ci} \gls{gitlab} peu avant mon arrivé et qui
+m'ont accompagné tout au long du stage en apportant leur expertise technique
+et leur connaissance approfondie de l'écosystème \gls{trust}.
+Leur disponibilité et leurs conseils ont été précieux pour orienter mes choix
+techniques et résoudre les problèmes complexes rencontrés.
 
 \bigskip
 
@@ -156,9 +158,9 @@ comprendre les besoins opérationnels et les contraintes spécifiques du domaine
 
 \bigskip
 
-Pour les aspects techniques plus spécialisés, notamment concernant l'
-infrastructure réseau et les questions de sécurité informatique, j'ai bénéficié
-du support de l'équipe \gls{rsi} de l'\gls{isas}. Cette
+Pour les aspects techniques plus spécialisés, notamment concernant
+l'infrastructure réseau et les questions de sécurité informatique, j'ai bénéficié
+du support de l'équipe \gls{rssi} de l'\gls{isas}. Cette
 équipe, joignable via un système de tickets, a apporté son expertise pour
 résoudre les problèmes d'infrastructure et valider la conformité de mes
 développements avec les politiques de sécurité du \gls{cea}.
@@ -175,26 +177,29 @@ confiées.
 
 \subsection{Compte-rendu d'activité}
 
-\subsubsection{Axes d'étude et de recherche choisis}
+\subsubsection{Phase de documentation et d'appropriation technique}
 
-Les axes d'étude et de développement se sont appuyés sur un cadre initial fourni par mes encadrants. Les principaux axes de travail sont les suivants :
+Le travail préparatoire s'est appuyé sur un cadre initial fourni par mes encadrants. Les principales phases de documentation et d'appropriation technique sont les suivantes :
 
 \medskip
 \begin{enumerate}
-\item Documentation et appropriation de l'écosystème \gls{trust}. L'étude s'est concentrée sur la compréhension du fonctionnement de \gls{trust}, de son processus de compilation et de son écosystème de tests existants (\gls{atelier}). Réalisation des tutoriels utilisateurs et analyse des scripts Bash de l'infrastructure existante.
+\item \textbf{Appropriation de l'écosystème \gls{trust}.} Compréhension du fonctionnement de \gls{trust}, de son processus de compilation et de son utilisation. Lecture des tutoriels utilisateurs et analyse des besoins du projet pour la \gls{ci}.
 \medskip
-\item Étude des technologies d'intégration continue et de conteneurisation. Exploration approfondie de \gls{gitlab} \gls{ci}/\gls{cd}, des \glspl{pipeline} et des bonnes pratiques \gls{devops}. Étude comparative des solutions de conteneurisation (\gls{docker} vs Podman) et des architectures de déploiement (\gls{dockercompose}, Usernetes, scripts personnalisés).
+
+\item \textbf{Prise en main des technologies d'intégration continue.} Documentation sur \gls{gitlab} \gls{ci}/\gls{cd}, les \glspl{pipeline} et les bonnes pratiques \gls{devops}. Comparaison des solutions de conteneurisation (\gls{docker} vs Podman) et des architectures de déploiement possibles.
 \medskip
-\item Exploration des contraintes de sécurité \gls{cea}. Compréhension des exigences de sécurité imposant un fonctionnement en mode \gls{rootless}. Étude des implications sur l'architecture réseau (absence d'IPv4 forwarding, utilisation de \gls{slirp4netns}) et sur la gestion des conteneurs.
+
+\item \textbf{Compréhension des contraintes de sécurité \gls{cea}.} Identification des exigences de sécurité imposant un fonctionnement en mode \gls{rootless} et de leurs implications techniques sur l'architecture réseau et la gestion des conteneurs.
 \medskip
-\item Lecture de la documentation \gls{gitlab} \gls{ci}/\gls{cd} et des \glspl{runner}. Étude approfondie des mécanismes de \gls{cache}, des \glspl{artifact}, des stratégies de parallélisation et des templates réutilisables. Exploration des patterns de configuration avancés (includes, anchors, matrices).
+
+\item \textbf{Documentation technique de \gls{gitlab} \gls{ci}/\gls{cd}.} Apprentissage des mécanismes de \gls{cache}, des \glspl{artifact}, des stratégies de parallélisation et des templates réutilisables. Découverte des patterns de configuration avancés.
 \medskip
 \end{enumerate}
 \medskip
 
-Ces activités de recherche et d'appropriation ont impliqué une phase intensive de documentation pendant les premières semaines du stage. Le livrable associé à ces travaux est une infrastructure complète documentée et déployée.
+Ces activités de documentation et d'appropriation ont représenté une phase intensive durant les premières semaines du stage, phase nécessaire à la conception et au déploiement de l'infrastructure \gls{ci}/\gls{cd} complète et documentée qui constitue le livrable principal de ce stage.
 
-\subsubsection{Déroulement concret des études, expérimentations et mises au point}
+\subsubsection{Déroulement concret des travaux, expérimentations et ajustements}
 
 \subsubsubsection{Chronologie du stage}
 
@@ -222,7 +227,7 @@ développement.
 \bigskip
 
 Le processus de déploiement a nécessité de nombreuses interactions avec
-l'équipe \gls{rsi} de l'\gls{isas} afin d'obtenir les configurations
+l'équipe \gls{rssi} de l'\gls{isas} afin d'obtenir les configurations
 nécessaires, notamment l'attribution de plages de \gls{subuid} pour chaque
 utilisateur devant exécuter \gls{docker}. Ces identifiants subordonnés sont
 essentiels au fonctionnement du mode \gls{rootless}, car ils permettent de
@@ -241,16 +246,16 @@ configuration \gls{docker} du projet.
 
 \bigskip
 
-Un autre défi concernait les images de base pour \gls{trust}. Les premiers
-essais avec des images standards se sont heurtés à deux problèmes : d'une
-part, \gls{trust} refuse de compiler en tant que root pour des raisons de
-sécurité, nécessitant la création d'utilisateurs non privilégiés dans les
-conteneurs ; d'autre part, les dépendances de \gls{trust} (regroupées dans le
-paquet \gls{externalpackages}) représentent plusieurs gigaoctets de données,
-rendant les images initiales excessivement volumineuses (plus de 5 Go). Une
-refonte complète de la stratégie de construction des images a permis de
-réduire significativement leur taille en séparant les dépendances système des
-\glspl{artifact} de compilation.
+Un autre défi concernait les images de base pour \gls{trust}. Les premières
+images utilisées posaient deux problèmes : d'une part, \gls{trust} refuse de
+compiler en tant que root pour des raisons de sécurité, nécessitant la
+création d'utilisateurs non privilégiés dans les conteneurs ; d'autre part,
+ces images contenaient directement toutes les dépendances de \gls{trust}
+(regroupées dans le paquet \gls{externalpackages}), ce qui les rendait
+excessivement volumineuses (plus de 5 Go). La solution adoptée a consisté à
+repenser l'approche en utilisant des images de base plus génériques et en
+gérant les dépendances du projet de manière dynamique plutôt que de les
+inclure directement dans les images.
 
 \bigskip
 
@@ -266,8 +271,8 @@ Bien que le code source principal de \gls{trust} ait déjà été migré vers
 l'ensemble des dépendances de \gls{trust} sous forme d'archives compressées,
 posait un problème majeur. Ce dépôt est nécessaire car \gls{trust} doit
 pouvoir se compiler en environnement isolé sans accès Internet, notamment dans
-les zones sécurisées du \gls{cea}. Il contient plusieurs dizaines de
-gigaoctets d'archives (fichiers .tar.gz des bibliothèques tierces).
+les zones sécurisées du \gls{cea}. Il contient plusieurs gigaoctets d'archives
+(fichiers .tar.gz des bibliothèques tierces).
 
 \bigskip
 
@@ -373,39 +378,6 @@ problèmes (exemples : \texttt{configure:cpu\_fedora40},
 
 \bigskip
 
-\setlength{\intextsep}{0pt}%
-\setlength{\extrarowheight}{0.15cm}
-\begin{wrapfigure}{l}{0.55\textwidth}
-\vspace{-0.5em}
-{\footnotesize
-\begin{tabular}{|l|l|l|}
-\hline
-Distribution & Image \gls{docker} & Gestionnaire \\
-\hline
-Fedora 40 & \texttt{fedora:40} & dnf \\
-\hline
-Rocky Linux 8 & \texttt{rockylinux:8} & dnf \\
-\hline
-CentOS 8 & \texttt{centos:8} & dnf \\
-\hline
-Ubuntu 22.04 & \texttt{ubuntu:22.04} & apt \\
-\hline
-UBI 8 & \texttt{redhat/ubi8} & dnf \\
-\hline
-\end{tabular}
-\vspace{-0.5em}
-\captionof{table}{Distributions \acrshort{cpu} intégrées à la \acrshort{ci}}
-\label{tab:distros_cpu}}
-\end{wrapfigure}
-
-Cinq distributions \acrshort{cpu} ont été intégrées
-(table~\ref{tab:distros_cpu}). Chaque distribution est définie via une ancre
-\acrshort{yaml} contenant tous ses paramètres : image \gls{docker},
-gestionnaire de paquets, options de configuration, cibles de tests et tags de
-\glspl{runner}.
-
-\bigskip
-
 \paragraph{Choix architectural : templates vs matrices}
 
 Une décision importante a concerné la structure de la configuration.
@@ -447,11 +419,11 @@ temps d'exécution :
 
 \paragraph{Mécanisme de matching de branches}
 
-Un système intelligent de détection de branches a été implémenté pour
-\gls{externalpackages}. Lors du job \texttt{determine\_branch} en stage
-\texttt{.pre}, la \gls{pipeline} vérifie si une branche du même nom que celle
-du dépôt principal existe dans \gls{externalpackages}. Si oui, elle est
-utilisée ; sinon, la branche \texttt{next} est sélectionnée par défaut. Ce
+Un système de détection de branches a été implémenté pour \gls{externalpackages}
+afin de disposer de la bonne version des application tièrces. Lors du job
+\texttt{determine\_branch} en stage \texttt{.pre}, la \gls{pipeline} vérifie si
+une branche du même nom que celle du dépôt principal existe dans \gls{externalpackages}.
+Si oui, elle est utilisée ; sinon, la branche \texttt{next} est sélectionnée par défaut. Ce
 mécanisme permet un développement coordonné multi-dépôts, facilitant les
 évolutions nécessitant des modifications synchronisées de \gls{trust} et de
 ses dépendances.
@@ -563,8 +535,8 @@ développement quotidien. Deux approches ont été implémentées :
 Le mécanisme de fonctionnement des jobs \gls{baltiks} suit cette séquence :
 (i) récupération du \gls{cache} de build du job \texttt{test} correspondant,
 (ii) clonage du dépôt \gls{baltik} avec le même système de matching de
-branches que \gls{externalpackages}, (iii) reconfiguration avec les options
-spécifiées, (iv) recompilation, et (v) exécution des tests du \gls{baltik}.
+branches que \gls{externalpackages}, (iii) configuration du \gls{baltik},
+(iv) compilation du \gls{baltik}, et (v) exécution des tests du \gls{baltik}.
 
 \bigskip
 
